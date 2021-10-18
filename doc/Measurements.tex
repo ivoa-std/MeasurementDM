@@ -1,0 +1,291 @@
+\documentclass[11pt,a4paper]{ivoa}
+\usepackage[margin=4.25cm]{geometry} 
+\input tthdefs
+\setcounter{tocdepth}{2}
+
+\title{Astronomical Measurements Model}
+
+% see ivoatexDoc for what group names to use here
+\ivoagroup{Data Model Working Group}
+
+%\author[????URL????]{????Alfred Usher Thor????}
+\author{Arnold Rots}
+\author{Mark Cresitello-Dittmar}
+
+\editor{Mark Cresitello-Dittmar}
+\editor{Arnold Rots}
+
+% \previousversion[????URL????]{????Funny Label????}
+\previousversion{This is the first public release}
+       
+
+\begin{document}
+
+\begin{abstract}
+  In creating version 2 of ``\emph{Space-Time Coordinate Metadata for the Virtual Observatory}'' (STC) \citep{std:STC} Data Model, it was decided to split the content into various component models which focus on particular aspects of the previous model scope.  
+  
+  This model covers the description of measured or determined astronomical data, and includes the following concepts:
+  \begin{itemize}
+  \item The association of the determined 'value' with corresponding errors.  In this model, the 'value' is given by the various Coordinate types of the Coordinates data model \citep{std:Coords}.
+  \item A description of the Error model.
+  \end{itemize}
+
+\end{abstract}
+
+
+\section*{Acknowledgments}
+TBD: Get appropriate acknowledgment text
+
+\section*{Conformance-related definitions}
+
+The words ``MUST'', ``SHALL'', ``SHOULD'', ``MAY'', ``RECOMMENDED'', and
+``OPTIONAL'' (in upper or lower case) used in this document are to be
+interpreted as described in IETF standard RFC2119 \citep{std:RFC2119}.
+
+The \emph{Virtual Observatory (VO)} is a
+general term for a collection of federated resources that can be used
+to conduct astronomical research, education, and outreach.
+The \href{http://www.ivoa.net}{International
+Virtual Observatory Alliance (IVOA)} is a global
+collaboration of separately funded projects to develop standards and
+infrastructure that enable VO applications.
+
+
+\newgeometry{left=1.0in,right=1.0in,bottom=1.0in}
+\section{Introduction}
+
+\subsection{Motivation}
+The collection and analysis of observed or derived data is the foundation of Astronomy.  
+These data form the core of our most fundamental products:
+\begin{itemize}
+  \item Observational data - raw data in detector coordinates and instramental units.
+  \item Derived data products - images and tables of derived data in physical units and coordinate spaces.
+  \item Simulated data - data derived from simulation of physical entities and instrumentation.
+  \item Catalogs - collections properties associated with various astronomical sources derived from multiple observations of that source.
+\end{itemize}
+
+Performing astronomical data analysis in the Virtual Observatory means to discover, evaluate, 
+extract, combine and manipulate data which may have been obtained at different times, 
+with different instruments, and different locations.  To confidently execute this workflow 
+requires a complete and accurate description of the nature of the data and its associated errors.  
+
+The ``\emph{Astronomical Coordinates and Coordinate Systems}'' (Coords) \citep{std:Coords} Data Model provides the description of the nature of the data values, the Coordinate space, reference frame, domain, etc.  Here, we utilize that information to build a model for observed or derived data which adds elements quantifying the accuracy of the data.
+
+\subsection{Context and Scope}
+
+This document results from updating the ``\emph{Space-Time Coordinate Metadata for the Virtual Observatory}'' (STC) \citep{std:STC} model for use in VO-DML compliant models.  That model provides metadata for describing Space-Time related, and other Coordinates including associated errors.  These metadata are to be used for specifying coordinate-related information for datasets, catalogs, and queries.  In this work, our primary focus is to support the use cases described below, while keeping the broader scope in mind to inform design decisions for future expansion.
+
+The update and revision of the STC model has sub-divided the content into component models, each covering a portion of the scope of the parent model.  This allows for better description of the relations between the various components, allows for independent development of the component models, and creates smaller, more digestible content for users.
+
+In the astronomical community, the terms ``quantity'', ``coordinate'', and ``measurement'' are used interchangably, but not always with the same meaning.  The ``coordinate'' of a star is typically a measured location, while the ``coordinate'' of the center of a circular region is not.  We provide here a short glossary of these terms in the IVOA data model context.
+\begin{itemize}
+  \item Quantity: [ivoa model]  A number with a unit.
+  \item Coordinate: [coords model]  An absolute location within a coordinate space.  Comprised of a 'value' (often a Quantity), associated with an axis in a coordinate space, and a coordinate frame providing additional metadata about the orientation and origin of the coordinate space.  In other words, a location in a domain space.
+  \item Measurement: [meas model]  For 'measured', or 'determined' data.  Combines a Coordinate (ie: the determined value) with corresponding Error(s).  For the majority of cases dealing with astronomical data, this is what we are referring to.
+\end{itemize}
+
+This document describes the Measurement model which provides descriptions for:
+\begin{itemize}
+  \item The observed or derived data 'value'.
+  \item The error(s) associated with that 'value'.
+\end{itemize}
+
+\section{Use Cases and Requirements}
+\label{sect:ucreq}
+
+\subsection{Use Cases}
+\label{sect:usecases}
+
+\subsubsection{Cube model support}
+\label{uc:Cube-model-support}
+  The primary use case for this work is in support of the CubesDM. \\
+  The CubesDM is a N-Dimensional model for pixelated images and sparse cube data. 
+ 
+  The following is a brief outline of the most relevant features pertaining to the
+  development of the Measurement, Coordinates, and Transform component models.  Many 
+  of these features are handled by the Coordinates or Transform models, but are 
+  relevant to the full description of Measurement model elements.
+
+  \begin{itemize}
+    \item General
+    \begin{itemize}
+       \item knowledge of the physical domain spaces provided at a high level
+       \item definition of the domain space includes the following criteria
+       \begin{itemize}
+          \item dimensionality (typically 1,2 or 3 for physical domain), pixel domain may be of any dimension
+          \item axis configuration (for spatial domain which has >1D).  The most common configurations for astronomical data are Cartesian and Spherical, but others may be used as well.
+          \item domain range along each axis, typically +/- Inf, but may be limited due to physical constraints (e.g. physical size of a detector, sensitivity limitiations, etc)
+          \item association with additional metadata further describing the nature of the domain space ( Frame ).  This is especially true for the Spatial and Temporal domains, but may apply to others as well.  Examples include:
+          \begin{itemize}
+             \item reference position (location of origin)
+             \item reference frame (orientation of the domain space)
+             \item planetary ephemeris
+             \item equinox
+          \end{itemize}
+       \end{itemize}
+    \end{itemize}
+    \item Pixelated Image Cube
+    \begin{itemize}
+       \item complete specification of pixel coordinate domain; number of axes, number of pixels per axis
+       \item image axes
+       \begin{itemize}
+          \item in pixel domain, are a binned coordinate space with integerized values (pixel indexes) 
+          \item mapped to various 'physical' coordinate spaces via transform operations 
+          \item mappings may define a progressive migration in coordinate space (e.g. pixel - ccd - detector - sky - wcs ) 
+          \item pixel axis mappings are typically to a continuous domain, but may also be to a discrete domain such as Polarization state.
+       \end{itemize}
+       \item image cubes may have any number of dimensions, but are typically separable into co-dependent axes of 1, 2, or 3 dimensions.
+       \begin{itemize}
+          \item spatial domain typically 2-3 dimensions
+          \item other domains (time, spectral, polarization), are typically 1 dimensional
+       \end{itemize}
+       \item image data value is typically given in a physical domain, but may itself be mapped to other domains
+    \end{itemize}
+    \item Sparse Cube
+    \begin{itemize}
+       \item data axes cover a wide array of physical domains including, but not limited to Spatial, Temporal, Spectral, Polarization,
+       \item individual domains may be represented multiple times in different frames ( ccd, detector, sky;  pha, energy )
+       \item data values may have associated errors
+       \begin{itemize}
+          \item typical error forms include: symmetric( +/- a ), asymmetric( +a:-b ), interval ( a:b ), matrix, elliptical
+          \item can become quite complex: probability distributions, error maps, etc.
+          \item quality indicators:
+          \begin{itemize}
+             \item global status, typically numeric
+             \item bit array, where each bit is associated with a particular quality state 
+          \end{itemize}
+          \item associated errors may be separable or correlated among multiple data axes
+        \end{itemize}
+        \item data axes may be virtual, defined as a mapping from other data axes (same description as above)
+    \end{itemize}
+    \item Physical Data (Observables)
+    \begin{itemize}
+       \item focus on the following domains which are frequently included in astronomical data cubes: Spatial, Spectral, Temporal, Polarization
+       \item Spatial
+       \begin{itemize}
+          \item Cartesian space:  chip, detector, sky
+          \item Spherical space: Equatorial, Ecliptic, Galactic, LongLat
+       \end{itemize}
+       \item Time
+       \begin{itemize}
+          \item 1-Dimensional: JD, MJD, ISOTime, TimeOffset
+       \end{itemize}
+       \item Polarization
+       \begin{itemize}
+          \item Discrete space: Polarization states (Stokes, Linear, Circular, Vector )
+       \end{itemize}
+       \item Spectral
+       \begin{itemize}
+          \item 1-Dimensional: energy, frequency, wavelength
+       \end{itemize}
+    \end{itemize}
+  \end{itemize}
+
+\subsection{Requirements}
+\label{sect:reqs}
+
+ Examination and implementation of the above cases leads to a set of requirements distributed through the various STC component models.  Here we 
+itemize those relevant to this model specifically.
+
+\subsubsection{General}
+Requirements pertaining to the overall criteria that the model must satisfy.
+  \begin{itemize}
+    \item [\textbf{[vodml.001]:}] The model shall be vo-dml compliant
+    \item [\textbf{[vodml.002]:}] shall re-use, or refer to, dependent models for objects and concepts already defined in other models
+    \item [\textbf{[vodml.003]:}] shall produce a validated vo-dml XML description
+    \item [\textbf{[vodml.004]:}] shall produce documentation in vo-dml HTML format
+    \item [\textbf{[vodml.005]:}] shall produce documentation in standard PDF format
+  \end{itemize}
+
+\subsubsection{Application/Usage}
+Requirements pertaining to the user experience.  Note, as a data model, users will not typically interact directly with the model,
+  \begin{itemize}
+    \item [\textbf{[user.001]:}] Users should be able to identify and use basic content with minimal specialized information. 
+      In other words, a generic utility should be able to find and use core elements without knowing a lot about the various extensions and uses of those elements.
+    \item [\textbf{[user.002]:}] When applicable, the model should support usability by simplifying common scenarios. i.e. common things simple, complex things possible
+    \item [\textbf{[user.003]:}] The model shall be easily extended to accommodate cases and applications not yet considered.
+  \end{itemize}
+
+\subsubsection{Content}
+Requirements pertaining to the elements to be defined by the model.
+\begin{itemize}
+  \item Domains
+  \begin{itemize}
+    \item [\textbf{[dom.001]:}] Shall accommodate the description of data in any observable domain
+    \item [\textbf{[dom.002]:}] Shall provide enhanced/specialized description for data pertaining to
+    \begin{itemize}
+      \item [\textbf{[dom.002.1]:}] Pixel domain: binned, integerized, n-dimensional domain
+      \item [\textbf{[dom.002.2]:}] Spatial domain: continuous domain, typically in 2-3 dimensional cartesian or spherical spaces
+      \item [\textbf{[dom.002.3]:}] Time domain: continuous 1D domain, typically provided in JD, MJD, ISO, or as an Offset from a zero point
+      \item [\textbf{[dom.002.4]:}] Polarization domain: discrete 1D domain of polarization states. 
+    \end{itemize}
+  \end{itemize}
+
+  \item Measurements
+  \begin{itemize}
+    \item [\textbf{[meas.001]:}] Shall relate a coordinate value with associated errors
+    \item [\textbf{[meas.002]:}] Shall support multiple error associations per value to describe errors from different sources
+    \item [\textbf{[meas.003]:}] A value must not be associated with more than one each of statistical and systematic errors
+    \item [\textbf{[meas.004]:}] Errors may be correlated between component values ( ie: may apply to coordinate set as a whole )
+    \item [\textbf{[meas.005]:}] Values associated with different domains may have correlated errors (ie: components of coordinate tuple may refer to different domains, and have non-separable errors)
+    \item [\textbf{[meas.006]:}] Shall support the most common error forms, including, but not limited to: Symmetrical, Asymmetrical, Interval, Elliptical \\ with assumed Gaussian distribution at a 1-sigma confidence level.
+    \item [\textbf{[meas.007]:}] Shall provide specialized objects related to measurements in the priority domains ( Spatial, Spectral, Temporal, Polarization ); leveraging [user.0002] where possible
+    \item [\textbf{[meas.008]:}] Shall allow for the representation data outside the priority domains 
+  \end{itemize}
+\end{itemize}
+
+
+\pagebreak
+\subsection{Role within the VO Architecture}
+
+\begin{figure}[h]
+\centering
+
+% As of ivoatex 1.2, the architecture diagram is generated by ivoatex in
+% SVG; copy ivoatex/archdiag-full.xml to archdiag.xml and throw out
+% all lines not relevant to your standard.
+% Notes don't generally need this.  If you don't copy archdiag.xml,
+% you must remove archdiag.svg from FIGURES in the Makefile.
+
+\includegraphics[width=0.9\textwidth]{role_diagram.pdf}
+\caption{Architecture diagram for this document}
+\label{fig:archdiag}
+\end{figure}
+
+Fig.~\ref{fig:archdiag} shows the role this document plays within the
+IVOA architecture \citep{note:VOARCH}.
+
+% Main Body of the document, extracted from vo-dml/xml using vo-dml2ivoatex
+% with some post-processing.
+\input{body}
+
+
+\pagebreak
+\appendix
+\section{Changes from Previous Versions}
+
+% No previous versions yet.  
+
+% these would be subsections "Changes from v. WD-..."
+% Use itemize environments.
+\subsection{Changes from PR-2019-08-30}
+\begin{itemize} 
+  \item Section 1.2: add clarification that scope of this work is limited to the described cases only.
+  \item Section 2.2.3: rephrase requirement meas.003
+  \item Section 2.2.3: add clarification to requirement meas.006 text regarding assumed distribution types/levels in error model
+  \item Section 3: minor text addition in first paragraph
+  \item Consolidate individual Measure element sections to one
+  \item Misc. description updates/clarifications as per RFC comments
+\end{itemize}
+
+% Appendix for UML diagram conventions
+\input{modeling_conventions}
+
+% Appendix for IVOA Base types
+\input{ivoa_types}
+
+\pagebreak
+\bibliography{ivoatex/ivoabib,ivoatex/docrepo,other}
+
+
+\end{document}
