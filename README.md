@@ -1,11 +1,9 @@
 # What is it?
 
 This model covers the description of measured or determined astronomical data, and includes the following:
-
-    • The association of a determined ’value’ with corresponding errors.
-      In this model, the ’value’ is given by the various Coordinate types described in the Coordinates data model (Rots and Cresitello-Dittmar et al., 2019).
-    
-    • A description of the Error model.
+- The association of a determined ’value’ with corresponding errors.
+  In this model, the ’value’ is given by the various Coordinate types described in the Coordinates data model (Rots and Cresitello-Dittmar et al., 2019).
+- A description of the Error model.
 
 
 # Status
