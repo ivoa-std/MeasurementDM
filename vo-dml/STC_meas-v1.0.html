@@ -1,0 +1,1748 @@
+<html xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Astronomical Measurements Model</title>
+    <link rel="stylesheet" href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/style/ivoa_wg.css" type="text/css">
+    <link rel="stylesheet" href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/style/xmi.css" type="text/css">
+  </head>
+  <body>
+    <h1>Astronomical Measurements Model</h1>
+    <h2><a id="contents" name="contents">Table of Contents</a></h2>
+    <div class="head">
+      <table class=".toc">
+        <tr>
+          <td>1.</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#model_section">model: meas</a></td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#packages">Packages and Types</a></td>
+        </tr>
+        <tr>
+          <td>2.1</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rootpackage">[root package]</a></td>
+        </tr>
+        <tr>
+          <td>2.1.1</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Asymmetrical1D">dataType:Asymmetrical1D</a></td>
+        </tr>
+        <tr>
+          <td>2.1.2</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Asymmetrical2D">dataType:Asymmetrical2D</a></td>
+        </tr>
+        <tr>
+          <td>2.1.3</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Asymmetrical3D">dataType:Asymmetrical3D</a></td>
+        </tr>
+        <tr>
+          <td>2.1.4</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Bounds1D">dataType:Bounds1D</a></td>
+        </tr>
+        <tr>
+          <td>2.1.5</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Bounds2D">dataType:Bounds2D</a></td>
+        </tr>
+        <tr>
+          <td>2.1.6</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Bounds3D">dataType:Bounds3D</a></td>
+        </tr>
+        <tr>
+          <td>2.1.7</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Ellipse">dataType:Ellipse</a></td>
+        </tr>
+        <tr>
+          <td>2.1.8</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Ellipsoid">dataType:Ellipsoid</a></td>
+        </tr>
+        <tr>
+          <td>2.1.9</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Error">objectType:Error</a></td>
+        </tr>
+        <tr>
+          <td>2.1.10</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#GenericMeasure">objectType:GenericMeasure</a></td>
+        </tr>
+        <tr>
+          <td>2.1.11</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Measure">objectType:Measure</a></td>
+        </tr>
+        <tr>
+          <td>2.1.12</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Polarization">objectType:Polarization</a></td>
+        </tr>
+        <tr>
+          <td>2.1.13</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Position">objectType:Position</a></td>
+        </tr>
+        <tr>
+          <td>2.1.14</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#ProperMotion">objectType:ProperMotion</a></td>
+        </tr>
+        <tr>
+          <td>2.1.15</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Symmetrical">dataType:Symmetrical</a></td>
+        </tr>
+        <tr>
+          <td>2.1.16</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Time">objectType:Time</a></td>
+        </tr>
+        <tr>
+          <td>2.1.17</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Uncertainty">dataType:Uncertainty</a></td>
+        </tr>
+        <tr>
+          <td>2.1.18</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Velocity">objectType:Velocity</a></td>
+        </tr>
+        <tr>
+          <td>3.</td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#vodml-ids">vodml-id-s</a></td>
+        </tr>
+        <tr>
+          <td>4.</td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#modelimports">Imported Models</a></td>
+        </tr>
+        <tr>
+          <td>4.1</td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#coords">coords</a></td>
+        </tr>
+        <tr>
+          <td>4.2</td>
+          <td>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="#ivoa">ivoa</a></td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <h1><a name="model_section">1. Model: Astronomical Measurements Model (meas)</a></h1>
+    <table>
+      <tr>
+        <td align="right"><b>Authors</b></td>
+        <td> : </td>
+        <td>Arnold Rots, Mark Cresitello-Dittmar, Omar Laurino</td>
+      </tr>
+      <tr>
+        <td align="right"><b>Date</b></td>
+        <td> : </td>
+        <td>2020-06-19T14:44:33</td>
+      </tr>
+      <tr>
+        <td align="right"><b>Version</b></td>
+        <td> : </td>
+        <td>2.0</td>
+      </tr>
+      <tr>
+        <td align="right">Previous version:</td>
+        <td> : </td>
+        <td><a href="0.x">0.x</a></td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"><b>Abstract</b></td>
+        <td valign="top"> : </td>
+        <td>This model defines objects and datatypes which represent 'measured' or 'determined' data.  It associates a Coordinate (ie:
+          the determined value with associated physical context) with corresponding Error(s).  As such, this model is at least the foundation
+          for representing the vast majority of the Astronomical data found in catalogs and data products.  
+          
+          We define here, several specialized classes which cover the most basic and common types, such as Position and Time.  We also
+          provide a generic model which can accommodate virtually any data, but may require a bit more effort to fully describe the
+          coordinate metadata.  Additional specializations, e.g. Flux, Magnitude, Luminosity, Pressure, Temperature, etc. may be added
+          to this model, or in other models focusing on particular domains or use cases.
+          
+          We include a fairly simple Error model, describing errors as a 'shape' of uncertainty, and define a small set of commonly
+          occuring forms (e.g. Symmetrical, Bounds, Ellipsoid). 
+          
+        </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top"><b>Diagram</b></td>
+        <td valign="top"> : </td>
+        <td>The following diagram has been generated from the model using the <a href="http://www.graphviz.org/" target="_blank">GraphViz</a> tool.<br>
+          The classes and packages in the diagram can be clicked and are mapped to the descriptions of the corresponding element elsewhere
+          in the document. 
+          
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+      </tr>
+    </table><img src="STC_meas-v1.0.png" usemap="#GVmap"><map id="GVmap" name="GVmap">
+<area shape="rect" id="node1" href="#Uncertainty" title="{&lt;&lt;datatype&gt;&gt;\nUncertainty}" alt="" coords="694,125,777,175"/>
+<area shape="rect" id="node2" href="#Symmetrical" title="{&lt;&lt;datatype&gt;&gt;\nSymmetrical|+radius : ivoa:RealQuantity\l}" alt="" coords="5,11,145,70"/>
+<area shape="rect" id="node3" href="#Asymmetrical1D" title="{&lt;&lt;datatype&gt;&gt;\nAsymmetrical1D|+plus : ivoa:RealQuantity\l+minus : ivoa:RealQuantity\l}" alt="" coords="169,5,309,76"/>
+<area shape="rect" id="node4" href="#Asymmetrical2D" title="{&lt;&lt;datatype&gt;&gt;\nAsymmetrical2D|+plus : ivoa:RealQuantity\l+minus : ivoa:RealQuantity\l}" alt="" coords="333,5,473,76"/>
+<area shape="rect" id="node5" href="#Asymmetrical3D" title="{&lt;&lt;datatype&gt;&gt;\nAsymmetrical3D|+plus : ivoa:RealQuantity\l+minus : ivoa:RealQuantity\l}" alt="" coords="497,5,637,76"/>
+<area shape="rect" id="node6" href="#Bounds1D" title="{&lt;&lt;datatype&gt;&gt;\nBounds1D|+loLimit : ivoa:RealQuantity\l+hiLimit : ivoa:RealQuantity\l}" alt="" coords="662,5,809,76"/>
+<area shape="rect" id="node7" href="#Bounds2D" title="{&lt;&lt;datatype&gt;&gt;\nBounds2D|+loLimit : ivoa:RealQuantity\l+hiLimit : ivoa:RealQuantity\l}" alt="" coords="833,5,979,76"/>
+<area shape="rect" id="node8" href="#Bounds3D" title="{&lt;&lt;datatype&gt;&gt;\nBounds3D|+loLimit : ivoa:RealQuantity\l+hiLimit : ivoa:RealQuantity\l}" alt="" coords="1003,5,1150,76"/>
+<area shape="rect" id="node9" href="#Ellipse" title="{&lt;&lt;datatype&gt;&gt;\nEllipse|+semiAxis : ivoa:RealQuantity\l+posAngle : ivoa:RealQuantity\l}" alt="" coords="1175,5,1331,76"/>
+<area shape="rect" id="node10" href="#Ellipsoid" title="{&lt;&lt;datatype&gt;&gt;\nEllipsoid|+semiAxis : ivoa:RealQuantity\l+posAngle : ivoa:RealQuantity\l}" alt="" coords="1355,5,1511,76"/>
+<area shape="rect" id="node11" href="#Measure" title="{Measure}" alt="" coords="1994,125,2066,175"/>
+<area shape="rect" id="node12" href="#Error" title="{Error|+statError : meas:Uncertainty\l+sysError : meas:Uncertainty\l}" alt="" coords="1955,237,2105,296"/>
+<area shape="rect" id="node13" href="#GenericMeasure" title="{GenericMeasure|+coord : coords:PhysicalCoordinate\l}" alt="" coords="1535,16,1711,65"/>
+<area shape="rect" id="node14" href="#Position" title="{Position|+coord : coords:Point\l}" alt="" coords="1735,16,1850,65"/>
+<area shape="rect" id="node15" href="#Time" title="{Time|+coord : coords:TimeStamp\l}" alt="" coords="1874,16,2015,65"/>
+<area shape="rect" id="node16" href="#Polarization" title="{Polarization|+coord : coords:PolCoordinate\l}" alt="" coords="2040,16,2193,65"/>
+<area shape="rect" id="node17" href="#Velocity" title="{Velocity|+coord : coords:Point\l}" alt="" coords="2218,16,2333,65"/>
+<area shape="rect" id="node18" href="#ProperMotion" title="{ProperMotion|+lon : coords:PhysicalCoordinate\l+lat : coords:PhysicalCoordinate\l}" alt="" coords="2357,11,2522,70"/>
+</map>
+
+    <hr>
+    <h1>2.<a name="packages">Model contents: Packages and Types</a></h1>
+    <p>
+      The following sub-sections present all packages in the model with their types.
+      The packages are listed here in alphabetical order.
+      Each sub-section contains a description of the package and a table containing its various features.
+      
+    </p>
+    <h3><a name="rootpackage"></a>2.1 [root package]
+    </h3>
+    <table border="1" cellspacing="2" width="100%">
+      <tr>
+        <td class="objecttype-title" width="20%">Model</td>
+        <td class="objecttype-name">meas</td>
+      </tr>
+      <tr>
+        <td width="20%" class="info-title">Object types</td>
+        <td colspan="2" class="feature-detail"><a href="#Error">Error</a> <a href="#GenericMeasure">GenericMeasure</a> <a href="#Measure">Measure</a> <a href="#Polarization">Polarization</a> <a href="#Position">Position</a> <a href="#ProperMotion">ProperMotion</a> <a href="#Time">Time</a> <a href="#Velocity">Velocity</a> 
+        </td>
+      </tr>
+      <tr>
+        <td width="20%" class="info-title">Data types</td>
+        <td colspan="2" class="feature-detail"><a href="#Asymmetrical1D">Asymmetrical1D</a> <a href="#Asymmetrical2D">Asymmetrical2D</a> <a href="#Asymmetrical3D">Asymmetrical3D</a> <a href="#Bounds1D">Bounds1D</a> <a href="#Bounds2D">Bounds2D</a> <a href="#Bounds3D">Bounds3D</a> <a href="#Ellipse">Ellipse</a> <a href="#Ellipsoid">Ellipsoid</a> <a href="#Symmetrical">Symmetrical</a> <a href="#Uncertainty">Uncertainty</a> 
+        </td>
+      </tr>
+    </table>
+    <h3><a name="Asymmetrical1D"></a>2.1.1 dataType: Asymmetrical1D
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Asymmetrical1D</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Uncertainty with different extent in the positive and negative directions from the associated Coordinate.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Asymmetrical1D.plus"></a><b>plus</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Asymmetrical1D.plus</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent in the positive axis direction.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Asymmetrical1D.minus"></a><b>minus</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Asymmetrical1D.minus</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent in the negative axis direction.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Asymmetrical2D"></a>2.1.2 dataType: Asymmetrical2D
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Asymmetrical2D</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">2D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an
+            offset rectangle.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Asymmetrical2D.plus"></a><b>plus</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Asymmetrical2D.plus</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">2</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent in each positive axis direction.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Asymmetrical2D.minus"></a><b>minus</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Asymmetrical2D.minus</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">2</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent in each negative axis direction.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Asymmetrical3D"></a>2.1.3 dataType: Asymmetrical3D
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Asymmetrical3D</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">3D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an
+            offset box.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Asymmetrical3D.plus"></a><b>plus</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Asymmetrical3D.plus</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">3</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent in each positive axis direction.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Asymmetrical3D.minus"></a><b>minus</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Asymmetrical3D.minus</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">3</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent in each negative axis direction.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Bounds1D"></a>2.1.4 dataType: Bounds1D
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Bounds1D</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provide the edges of the uncertainty space.  Rather than being relative to the associated Coordinate, these represent a range
+            within that Coordinate space.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Bounds1D.loLimit"></a><b>loLimit</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Bounds1D.loLimit</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Lower limit of the uncertainty range.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Bounds1D.hiLimit"></a><b>hiLimit</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Bounds1D.hiLimit</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Upper limit of the uncertainty range.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Bounds2D"></a>2.1.5 dataType: Bounds2D
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Bounds2D</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provide the edges of a 2D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges
+            along each axis of that Coordinate space.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Bounds2D.loLimit"></a><b>loLimit</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Bounds2D.loLimit</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">2</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Lower edges of the uncertainty rectangle.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Bounds2D.hiLimit"></a><b>hiLimit</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Bounds2D.hiLimit</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">2</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Upper edges of the uncertainty rectangle.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Bounds3D"></a>2.1.6 dataType: Bounds3D
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Bounds3D</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provide the edges of a 3D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges
+            along each axis of that Coordinate space.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Bounds3D.loLimit"></a><b>loLimit</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Bounds3D.loLimit</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">3</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Lower edges of the uncertainty box.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Bounds3D.hiLimit"></a><b>hiLimit</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Bounds3D.hiLimit</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">3</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Upper edges of the uncertainty box.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Ellipse"></a>2.1.7 dataType: Ellipse
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Ellipse</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Elliptical uncertainty shape.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Ellipse.semiAxis"></a><b>semiAxis</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Ellipse.semiAxis</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">2</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent of the semi-major and semi-minor axes, provided in the order of the associated Coordinate axes.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Ellipse.posAngle"></a><b>posAngle</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Ellipse.posAngle</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Position angle, counter-clockwise from the positive direction of the first axis of the associated Coordinate.  When used in
+                        the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the second to
+                        'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.
+                        
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Ellipsoid"></a>2.1.8 dataType: Ellipsoid
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Ellipsoid</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Ellipsoidal uncertainty shape.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Ellipsoid.semiAxis"></a><b>semiAxis</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Ellipsoid.semiAxis</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">3</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Extent of the semi axes, provided in the order of the associated Coordinate axes.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Ellipsoid.posAngle"></a><b>posAngle</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Ellipsoid.posAngle</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">2</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Position angles 
+                        * counter-clockwise from the positive direction of the first axis toward the second axis
+                        * angle 'above' the plane of the first two axes of the associated Coordinate.  
+                        When used in the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the
+                        second to 'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Error"></a>2.1.9 objectType: Error
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Error</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">The Error class uses the Uncertainty types to describe measurement errors from various sources.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Error.statError"></a><b>statError</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Error.statError</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">0..1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Statistical error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Error.sysError"></a><b>sysError</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Error.sysError</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">0..1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Systematic error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="GenericMeasure"></a>2.1.10 objectType: GenericMeasure
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">GenericMeasure</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">The most generic Measure class.  This class may be used to represent data not covered by the specialized cases.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Measure">Measure [meas:Measure]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="GenericMeasure.coord"></a><b>coord</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">GenericMeasure.coord</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">The measured coordinate value.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Measure"></a>2.1.11 objectType: Measure
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Measure</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
+            
+            We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and
+            uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered
+            with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions
+            and the corresponding value dimension.  We require that the Error content MUST be compatible with the value dimension and
+            nature (e.g. dimension, domain, units, etc).
+            
+            
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td class="info-title" width="20%">abstract</td>
+                      <td class="feature-detail" colspan="3">True</td>
+                    </tr>
+                    <tr>
+                      <td class="info-title" width="20%">Subclasses in this model</td>
+                      <td class="feature-detail" colspan="3"><a href="#GenericMeasure">GenericMeasure</a> <a href="#Polarization">Polarization</a> <a href="#Position">Position</a> <a href="#ProperMotion">ProperMotion</a> <a href="#Time">Time</a> <a href="#Velocity">Velocity</a> 
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">compositions</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="5"><a name="Measure.error"></a><b>error</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#Error">Error [meas:Error]</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Measure.error</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">0..1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">isOrdered</td>
+                      <td class="feature-detail">false</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Measurement error.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Polarization"></a>2.1.12 objectType: Polarization
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Polarization</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provides a complete description of a determined polarization state.  Since the polarization coordinate is an enumerated type,
+            there can be no associated numerical error sources.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Measure">Measure [meas:Measure]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Polarization.coord"></a><b>coord</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PolCoordinate">PolCoordinate</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Polarization.coord</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Determined polarization state.  May be provided by any of the PolCoordValue subtypes.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">constraints</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" colspan="3">error:Error[0]</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Position"></a>2.1.13 objectType: Position
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Position</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provides a complete description of a measured positional instant.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Measure">Measure [meas:Measure]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Position.coord"></a><b>coord</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#Point">Point</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Position.coord</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">The measured Position value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system
+                        (space and frame), are associated with the Point.
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="ProperMotion"></a>2.1.14 objectType: ProperMotion
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">ProperMotion</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Proper motion represented as the velocity in Longitude and Latitude directions of a spherical coordinate space.  The associated
+            SpaceFrame provides the details regarding the nature of the coordinate space (eg: Equatorial, Galactic, etc).
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Measure">Measure [meas:Measure]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="ProperMotion.lon"></a><b>lon</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">ProperMotion.lon</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote
+                        longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal
+                        position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular
+                        usage thread.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="ProperMotion.lat"></a><b>lat</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">ProperMotion.lat</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">Velocity in angular distance per unit time along the Latitude axis.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Symmetrical"></a>2.1.15 dataType: Symmetrical
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Symmetrical</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Symmetrical uncertainty, constant in all dimensions and directions from the associated Coordinate.  ie: PlusMinus in 1D, circular
+            in 2D, spherical in 3D.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Uncertainty">Uncertainty [meas:Uncertainty]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Symmetrical.radius"></a><b>radius</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#RealQuantity">RealQuantity</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Symmetrical.radius</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">The uncertainty extent, constant in all dimensions and directions.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Time"></a>2.1.16 objectType: Time
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Time</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provides a complete description of a measured Temporal instant.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Measure">Measure [meas:Measure]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Time.coord"></a><b>coord</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#TimeStamp">TimeStamp</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Time.coord</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">The measured time value.  May be provided in any of the TimeStamp subtypes.</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Uncertainty"></a>2.1.17 dataType: Uncertainty
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Uncertainty</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Abstract head of uncertainty types.  These classes define the shape of the uncertainty, and are designed to be reusable in
+            different contexts.  Uncertainties are designed to be associated with a Coordinate or other object which provides the 'center'
+            or reference location about which the uncertainty resides.  In this model, we use them in the context of defining measurement
+            errors, but they are also compatible for use in defining resolutions which are to be modeled at a later date.
+            
+            This initial version of teh model forms a fundamental basis which can then be expanded to include more complex and varied
+            use cases as they present themselves.  The current model assumes Gaussian distributions with shpes defined at the 68% confidence
+            level.
+            
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td class="info-title" width="20%">abstract</td>
+                      <td class="feature-detail" colspan="3">True</td>
+                    </tr>
+                    <tr>
+                      <td class="info-title" width="20%">Subclasses in this model</td>
+                      <td class="feature-detail" colspan="3"><a href="#Asymmetrical1D">Asymmetrical1D</a> <a href="#Asymmetrical2D">Asymmetrical2D</a> <a href="#Asymmetrical3D">Asymmetrical3D</a> <a href="#Bounds1D">Bounds1D</a> <a href="#Bounds2D">Bounds2D</a> <a href="#Bounds3D">Bounds3D</a> <a href="#Ellipse">Ellipse</a> <a href="#Ellipsoid">Ellipsoid</a> <a href="#Symmetrical">Symmetrical</a> 
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><h3><a name="Velocity"></a>2.1.18 objectType: Velocity
+    </h3>
+    <div align="center">
+      <table border="1" width="100%" cellspacing="2">
+        <tr>
+          <td class="objecttype-title" width="20%">vodml-id</td>
+          <td class="objecttype-name" colspan="1">Velocity</td>
+        </tr>
+        <tr>
+          <td class="info-title">description</td>
+          <td class="feature-detail" colspan="1">Provides a comple description of a measured Velocity instant.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td colspan="2" bgcolor="#cacaca">
+                  <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                    <tr>
+                      <td width="20%" class="info-title">extends</td>
+                      <td colspan="3" class="feature-detail"><a href="#Measure">Measure [meas:Measure]</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Velocity.coord"></a><b>coord</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#Point">Point</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Velocity.coord</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">The measured Velocity value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system
+                        (space and frame), are associated with the Point.
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div><br><hr>
+    <h1>3.<a name="vodml-ids">Element Identifiers/VO-DMLrefs</a></h1>  
+    The following table shows all fully qualified vodml-ids for this data model.
+    It is ordered alphabetically and the identifiers are hyper-linked to the location
+    in the document where the actual element is fully defined.
+    
+    
+    <table style="border-style:solid;border-width:1px;" border="1" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="feature-heading">vodml-id</td>
+        <td class="feature-heading">feature type</td>
+        <td class="feature-heading">description</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#"></a></td>
+        <td class="feature-detail">vo-dml:model</td>
+        <td class="feature-detail">This model defines objects and datatypes which represent 'measured' or 'determined' data.  It associates a Coordinate (ie:
+          the determined value with associated physical context) with corresponding Error(s).  As such, this model is at least the foundation
+          for representing the vast majority of the Astronomical data found in catalogs and data products.  
+          
+          We define here, several specialized classes which cover the most basic and common types, such as Position and Time.  We also
+          provide a generic model which can accommodate virtually any data, but may require a bit more effort to fully describe the
+          coordinate metadata.  Additional specializations, e.g. Flux, Magnitude, Luminosity, Pressure, Temperature, etc. may be added
+          to this model, or in other models focusing on particular domains or use cases.
+          
+          We include a fairly simple Error model, describing errors as a 'shape' of uncertainty, and define a small set of commonly
+          occuring forms (e.g. Symmetrical, Bounds, Ellipsoid). 
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical1D">Asymmetrical1D</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Uncertainty with different extent in the positive and negative directions from the associated Coordinate.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical1D.minus">Asymmetrical1D.minus</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent in the negative axis direction.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical1D.plus">Asymmetrical1D.plus</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent in the positive axis direction.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical2D">Asymmetrical2D</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">2D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an
+          offset rectangle.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical2D.minus">Asymmetrical2D.minus</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent in each negative axis direction.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical2D.plus">Asymmetrical2D.plus</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent in each positive axis direction.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical3D">Asymmetrical3D</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">3D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an
+          offset box.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical3D.minus">Asymmetrical3D.minus</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent in each negative axis direction.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Asymmetrical3D.plus">Asymmetrical3D.plus</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent in each positive axis direction.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds1D">Bounds1D</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Provide the edges of the uncertainty space.  Rather than being relative to the associated Coordinate, these represent a range
+          within that Coordinate space.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds1D.hiLimit">Bounds1D.hiLimit</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Upper limit of the uncertainty range.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds1D.loLimit">Bounds1D.loLimit</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Lower limit of the uncertainty range.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds2D">Bounds2D</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Provide the edges of a 2D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges
+          along each axis of that Coordinate space.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds2D.hiLimit">Bounds2D.hiLimit</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Upper edges of the uncertainty rectangle.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds2D.loLimit">Bounds2D.loLimit</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Lower edges of the uncertainty rectangle.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds3D">Bounds3D</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Provide the edges of a 3D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges
+          along each axis of that Coordinate space.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds3D.hiLimit">Bounds3D.hiLimit</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Upper edges of the uncertainty box.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Bounds3D.loLimit">Bounds3D.loLimit</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Lower edges of the uncertainty box.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Ellipse">Ellipse</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Elliptical uncertainty shape.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Ellipse.posAngle">Ellipse.posAngle</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Position angle, counter-clockwise from the positive direction of the first axis of the associated Coordinate.  When used in
+          the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the second to
+          'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Ellipse.semiAxis">Ellipse.semiAxis</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent of the semi-major and semi-minor axes, provided in the order of the associated Coordinate axes.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Ellipsoid">Ellipsoid</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Ellipsoidal uncertainty shape.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Ellipsoid.posAngle">Ellipsoid.posAngle</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Position angles 
+          * counter-clockwise from the positive direction of the first axis toward the second axis
+          * angle 'above' the plane of the first two axes of the associated Coordinate.  
+          When used in the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the
+          second to 'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Ellipsoid.semiAxis">Ellipsoid.semiAxis</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Extent of the semi axes, provided in the order of the associated Coordinate axes.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Error">Error</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">The Error class uses the Uncertainty types to describe measurement errors from various sources.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Error.statError">Error.statError</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Statistical error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Error.sysError">Error.sysError</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Systematic error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#GenericMeasure">GenericMeasure</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">The most generic Measure class.  This class may be used to represent data not covered by the specialized cases.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#GenericMeasure.coord">GenericMeasure.coord</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">The measured coordinate value.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Measure">Measure</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
+          
+          We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and
+          uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered
+          with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions
+          and the corresponding value dimension.  We require that the Error content MUST be compatible with the value dimension and
+          nature (e.g. dimension, domain, units, etc).
+          
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Measure.error">Measure.error</a></td>
+        <td class="feature-detail">composition</td>
+        <td class="feature-detail">Measurement error.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Polarization">Polarization</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">Provides a complete description of a determined polarization state.  Since the polarization coordinate is an enumerated type,
+          there can be no associated numerical error sources.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Polarization.coord">Polarization.coord</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Determined polarization state.  May be provided by any of the PolCoordValue subtypes.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Position">Position</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">Provides a complete description of a measured positional instant.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Position.coord">Position.coord</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">The measured Position value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system
+          (space and frame), are associated with the Point.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#ProperMotion">ProperMotion</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">Proper motion represented as the velocity in Longitude and Latitude directions of a spherical coordinate space.  The associated
+          SpaceFrame provides the details regarding the nature of the coordinate space (eg: Equatorial, Galactic, etc).
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#ProperMotion.lat">ProperMotion.lat</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Velocity in angular distance per unit time along the Latitude axis.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#ProperMotion.lon">ProperMotion.lon</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote
+          longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal
+          position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular
+          usage thread.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Symmetrical">Symmetrical</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Symmetrical uncertainty, constant in all dimensions and directions from the associated Coordinate.  ie: PlusMinus in 1D, circular
+          in 2D, spherical in 3D.
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Symmetrical.radius">Symmetrical.radius</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">The uncertainty extent, constant in all dimensions and directions.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Time">Time</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">Provides a complete description of a measured Temporal instant.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Time.coord">Time.coord</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">The measured time value.  May be provided in any of the TimeStamp subtypes.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Uncertainty">Uncertainty</a></td>
+        <td class="feature-detail">dataType</td>
+        <td class="feature-detail">Abstract head of uncertainty types.  These classes define the shape of the uncertainty, and are designed to be reusable in
+          different contexts.  Uncertainties are designed to be associated with a Coordinate or other object which provides the 'center'
+          or reference location about which the uncertainty resides.  In this model, we use them in the context of defining measurement
+          errors, but they are also compatible for use in defining resolutions which are to be modeled at a later date.
+          
+          This initial version of teh model forms a fundamental basis which can then be expanded to include more complex and varied
+          use cases as they present themselves.  The current model assumes Gaussian distributions with shpes defined at the 68% confidence
+          level.
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Velocity">Velocity</a></td>
+        <td class="feature-detail">objectType</td>
+        <td class="feature-detail">Provides a comple description of a measured Velocity instant.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Velocity.coord">Velocity.coord</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">The measured Velocity value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system
+          (space and frame), are associated with the Point.
+        </td>
+      </tr>
+    </table>
+    <hr>
+    <h1>4.<a name="modelimports">Imported Models</a></h1>
+    <p>This section lists the external models imported by the current data model.
+      For each imported model we list URLs to the VO-DML and HTML representations and the prefix used for vodml-ids from inside
+      the model.
+    </p>
+    <h2><a name="coords"></a>4.1 coords
+    </h2>
+    <table border="1" cellspacing="2" width="100%">
+      <tr>
+        <td class="objecttype-title" width="20%">Model vodml-id</td>
+        <td class="objecttype-name">coords</td>
+      </tr>
+      <tr>
+        <td width="30%" class="info-title">url</td>
+        <td><a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.vo-dml.xml">https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.vo-dml.xml</a></td>
+      </tr>
+      <tr>
+        <td width="30%" class="info-title">documentation url</td>
+        <td><a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html">https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html</a></td>
+      </tr>
+    </table>
+    <h2><a name="ivoa"></a>4.2 ivoa
+    </h2>
+    <table border="1" cellspacing="2" width="100%">
+      <tr>
+        <td class="objecttype-title" width="20%">Model vodml-id</td>
+        <td class="objecttype-name">ivoa</td>
+      </tr>
+      <tr>
+        <td width="30%" class="info-title">url</td>
+        <td><a href="http://www.ivoa.net/xml/VODML/20180519/IVOA-v1.0.vo-dml.xml">http://www.ivoa.net/xml/VODML/20180519/IVOA-v1.0.vo-dml.xml</a></td>
+      </tr>
+      <tr>
+        <td width="30%" class="info-title">documentation url</td>
+        <td><a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html">http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html</a></td>
+      </tr>
+    </table>
+  </body>
+</html>
