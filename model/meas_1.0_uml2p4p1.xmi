@@ -13,23 +13,23 @@ We define here, several specialized classes which cover the most basic and commo
 We include a fairly simple Error model, describing errors as a 'shape' of uncertainty, and define a small set of commonly occuring forms (e.g. Symmetrical, Bounds, Ellipsoid). 
 </body>
     </ownedComment>
-    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhhTBbEeyTgO0dzOXbOg" name="ucd" constrainedElement="_02JiKjBbEeyTgO0dzOXbOg">
-      <specification xmi:type="uml:LiteralString" xmi:id="_02JhhjBbEeyTgO0dzOXbOg" value="pos"/>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhhTBbEeyTgO0dzOXbOg" constrainedElement="_02JiKjBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhhjBbEeyTgO0dzOXbOg" value="ucd:'pos'"/>
     </ownedRule>
-    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhhzBbEeyTgO0dzOXbOg" name="ucd" constrainedElement="_02JiLzBbEeyTgO0dzOXbOg">
-      <specification xmi:type="uml:LiteralString" xmi:id="_02JhiDBbEeyTgO0dzOXbOg" value="time"/>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhhzBbEeyTgO0dzOXbOg" constrainedElement="_02JiLzBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhiDBbEeyTgO0dzOXbOg" value="ucd:'time'"/>
     </ownedRule>
     <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhiTBbEeyTgO0dzOXbOg" constrainedElement="_02JiNDBbEeyTgO0dzOXbOg">
       <specification xmi:type="uml:LiteralString" xmi:id="_02JhijBbEeyTgO0dzOXbOg" value="error:Error[0]"/>
     </ownedRule>
-    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhizBbEeyTgO0dzOXbOg" name="ucd" constrainedElement="_02JiNDBbEeyTgO0dzOXbOg">
-      <specification xmi:type="uml:LiteralString" xmi:id="_02JhjDBbEeyTgO0dzOXbOg" value="phys.polarization"/>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhizBbEeyTgO0dzOXbOg" constrainedElement="_02JiNDBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhjDBbEeyTgO0dzOXbOg" value="ucd:'phys.polarization'"/>
     </ownedRule>
-    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhjTBbEeyTgO0dzOXbOg" name="ucd" constrainedElement="_02JiOTBbEeyTgO0dzOXbOg">
-      <specification xmi:type="uml:LiteralString" xmi:id="_02JhjjBbEeyTgO0dzOXbOg" value="phys.veloc"/>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhjTBbEeyTgO0dzOXbOg" constrainedElement="_02JiOTBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhjjBbEeyTgO0dzOXbOg" value="ucd:'phys.veloc'"/>
     </ownedRule>
-    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhjzBbEeyTgO0dzOXbOg" name="ucd" constrainedElement="_02JiPjBbEeyTgO0dzOXbOg">
-      <specification xmi:type="uml:LiteralString" xmi:id="_02JhkDBbEeyTgO0dzOXbOg" value="pos.pm"/>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhjzBbEeyTgO0dzOXbOg" constrainedElement="_02JiPjBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhkDBbEeyTgO0dzOXbOg" value="ucd:'pos.pm'"/>
     </ownedRule>
     <packagedElement xmi:type="uml:InformationItem" xmi:id="_02JhkTBbEeyTgO0dzOXbOg" name="Astronomical Measurement Model V1.0"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_02JhkjBbEeyTgO0dzOXbOg" name="ivoa">

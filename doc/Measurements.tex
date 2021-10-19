@@ -22,7 +22,7 @@
 \begin{document}
 
 \begin{abstract}
-  In creating version 2 of ``\emph{Space-Time Coordinate Metadata for the Virtual Observatory}'' (STC) \citep{std:STC} Data Model, it was decided to split the content into various component models which focus on particular aspects of the previous model scope.  
+  In creating version 2 of ``\emph{Space-Time Coordinate Metadata for the Virtual Observatory}'' (STC) \citep{2007ivoa.spec.1030R} Data Model, it was decided to split the content into various component models which focus on particular aspects of the previous model scope.  
   
   This model covers the description of measured or determined astronomical data, and includes the following concepts:
   \begin{itemize}
@@ -73,7 +73,7 @@ The ``\emph{Astronomical Coordinates and Coordinate Systems}'' (Coords) \citep{s
 
 \subsection{Context and Scope}
 
-This document results from updating the ``\emph{Space-Time Coordinate Metadata for the Virtual Observatory}'' (STC) \citep{std:STC} model for use in VO-DML compliant models.  That model provides metadata for describing Space-Time related, and other Coordinates including associated errors.  These metadata are to be used for specifying coordinate-related information for datasets, catalogs, and queries.  In this work, our primary focus is to support the use cases described below, while keeping the broader scope in mind to inform design decisions for future expansion.
+This document results from updating the ``\emph{Space-Time Coordinate Metadata for the Virtual Observatory}'' (STC) \citep{2007ivoa.spec.1030R} model for use in VO-DML compliant models.  That model provides metadata for describing Space-Time related, and other Coordinates including associated errors.  These metadata are to be used for specifying coordinate-related information for datasets, catalogs, and queries.  In this work, our primary focus is to support the use cases described below, while keeping the broader scope in mind to inform design decisions for future expansion.
 
 The update and revision of the STC model has sub-divided the content into component models, each covering a portion of the scope of the parent model.  This allows for better description of the relations between the various components, allows for independent development of the component models, and creates smaller, more digestible content for users.
 
@@ -253,7 +253,7 @@ Requirements pertaining to the elements to be defined by the model.
 \end{figure}
 
 Fig.~\ref{fig:archdiag} shows the role this document plays within the
-IVOA architecture \citep{note:VOARCH}.
+IVOA architecture \citep{2010ivoa.rept.1123A}.
 
 % Main Body of the document, extracted from vo-dml/xml using vo-dml2ivoatex
 % with some post-processing.
@@ -268,14 +268,18 @@ IVOA architecture \citep{note:VOARCH}.
 
 % these would be subsections "Changes from v. WD-..."
 % Use itemize environments.
-\subsection{Changes from PR-2019-08-30}
+\subsection{Changes from PR-2020-04-13}
 \begin{itemize} 
-  \item Section 1.2: add clarification that scope of this work is limited to the described cases only.
-  \item Section 2.2.3: rephrase requirement meas.003
-  \item Section 2.2.3: add clarification to requirement meas.006 text regarding assumed distribution types/levels in error model
-  \item Section 3: minor text addition in first paragraph
-  \item Consolidate individual Measure element sections to one
-  \item Misc. description updates/clarifications as per RFC comments
+  \item update citation codes per ivoatex changes.
+  \item Section 4.1: add descriptive text on expected usage of new ucd attribute
+  \item Section 4.1.1: add Measure.ucd attribute
+  \item Section 4.4: add constraint specification for Time.ucd
+  \item Section 4.5: add constraint specification for Position.ucd
+  \item Section 4.6: add constraint specification for Velocity.ucd
+  \item Section 4.7: add constraint specification for ProperMotion.ucd
+  \item Section 4.8: add constraint specification for Polarization.ucd
+  \item Section 4.7: change ProperMotion coordinate to coords:Point type.
+  \item Section 4.7: add ProperMotion.cosLat\_applied flag attribute
 \end{itemize}
 
 % Appendix for UML diagram conventions

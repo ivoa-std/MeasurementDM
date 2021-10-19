@@ -2,7 +2,17 @@
 # Project specific excludes
 #
 #
-# Binaries
+# ivoatex intermediate files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.pdf
+*.toc
+ivoatexmeta.tex
 
 # vo-dml products
 *.cmap

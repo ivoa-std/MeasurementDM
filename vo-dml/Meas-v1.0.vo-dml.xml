@@ -14,7 +14,7 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   <author>Arnold Rots, Mark Cresitello-Dittmar, Omar Laurino</author>
   <version>2.0</version>
   <previousVersion>0.x</previousVersion>
-  <lastModified>2021-10-19T09:59:04</lastModified>
+  <lastModified>2021-10-19T11:33:46</lastModified>
   <import>
     <name>ivoa</name>
     <url>http://www.ivoa.net/xml/VODML/20180519/IVOA-v1.0.vo-dml.xml</url>
@@ -418,7 +418,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
     <constraint>
-      <description>pos</description>
+      <description>ucd:'pos'</description>
     </constraint>
     <attribute>
       <vodml-id>Position.coord</vodml-id>
@@ -442,7 +442,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
     <constraint>
-      <description>time</description>
+      <description>ucd:'time'</description>
     </constraint>
     <attribute>
       <vodml-id>Time.coord</vodml-id>
@@ -469,7 +469,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <description>error:Error[0]</description>
     </constraint>
     <constraint>
-      <description>phys.polarization</description>
+      <description>ucd:'phys.polarization'</description>
     </constraint>
     <attribute>
       <vodml-id>Polarization.coord</vodml-id>
@@ -493,7 +493,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
     <constraint>
-      <description>phys.veloc</description>
+      <description>ucd:'phys.veloc'</description>
     </constraint>
     <attribute>
       <vodml-id>Velocity.coord</vodml-id>
@@ -517,7 +517,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
     <constraint>
-      <description>pos.pm</description>
+      <description>ucd:'pos.pm'</description>
     </constraint>
     <attribute>
       <vodml-id>ProperMotion.coord</vodml-id>

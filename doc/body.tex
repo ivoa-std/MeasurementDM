@@ -47,7 +47,17 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
 
   \subsection{Measure (Abstract)}
   \label{sect:Measure}
-    Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors. We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and uncorrelated errors. In many cases with multi-dimensional data, the associated errors are correlated and must be considered with the value set as a whole. One consequence of this approach is that there is a looser association between the Error dimensions and the corresponding value dimension. We require that the Error content MUST be compatible with the value dimension and nature (e.g. dimension, domain, units, etc).
+    Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
+
+    The breadth of astronomical data makes it impractical to define specialized classes for each property which may be measured or determined. In this model, we take a two-pronged approach for identifying the nature of any given Measure. First, we allow the use of a Unified Content Descriptor (UCD) to convey this information. Second, we define specialized classes for properties which either have additional metadata associated with them, have complex coordinate spaces, and/or have special significance in other models. For these specialized classes, the ucd is constrained to a fixed value.
+
+    We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and uncorrelated errors. In many cases with multi-dimensional data, the associated errors are correlated and must be considered with the value set as a whole. One consequence of this approach is that there is a looser association between the Error dimensions and the corresponding value dimension. We require that the Error content MUST be compatible with the value dimension and nature (e.g. dimension, domain, units, etc).
+
+    \subsubsection{Measure.ucd}
+      \textbf{vodml-id: Measure.ucd} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:string}} \newline
+      \textbf{multiplicity: 0..1} \newline 
+      The Unified Content Descriptor (UCD) defines a controlled vocabulary for describing astronomical quantities. Other than in the specialized types, we only constrain ucd value to being valid according to the vocabulary syntax. However, the intent is to use only enough of the vocabulary to convey the nature of the measured value, and avoid usage of terms which may overlap with modeled concepts associated with the value. For example, borrowing from examples in the UCD document: for a magnitude measured in the J band, the ucd "phot.mag" is preferred over "phot.mag;em.IR.J" which conveys information about an associated filter, or "phot.mag;em.IR.J;meta.modelled" which includes ancillary qualifiers.
 
     \subsubsection{Measure.error}
       \textbf{vodml-id: Measure.error} \newline
@@ -71,12 +81,6 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
       \textbf{multiplicity: 0..1} \newline 
       Systematic error. The Uncertainty type MUST be dimensionally compatible with the associated Measure value.
 
-    \subsubsection{Error.ranError}
-      \textbf{vodml-id: Error.ranError} \newline
-      \textbf{type: \hyperref[sect:Uncertainty]{meas:Uncertainty}} \newline
-      \textbf{multiplicity: 0..1} \newline 
-      Random error. The Uncertainty type MUST be dimensionally compatible with the associated Measure value.
-
 
   \subsection{GenericMeasure}
   \label{sect:GenericMeasure}
@@ -92,6 +96,9 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   \label{sect:Time}
     Provides a complete description of a measured Temporal instant.
 
+    \noindent \textbf{constraint} \newline
+    \indent    \textbf{detail: Time.ucd:'time' }\newline
+
     \subsubsection{Time.coord}
       \textbf{vodml-id: Time.coord} \newline
       \textbf{type: coords:TimeStamp} \newline
@@ -102,6 +109,9 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   \subsection{Position}
   \label{sect:Position}
     Provides a complete description of a measured positional instant.
+
+    \noindent \textbf{constraint} \newline
+    \indent    \textbf{detail: Position.ucd:'pos' }\newline
 
     \subsubsection{Position.coord}
       \textbf{vodml-id: Position.coord} \newline
@@ -114,6 +124,9 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   \label{sect:Velocity}
     Provides a comple description of a measured Velocity instant.
 
+    \noindent \textbf{constraint} \newline
+    \indent    \textbf{detail: Velocity.ucd:'phys.veloc' }\newline
+
     \subsubsection{Velocity.coord}
       \textbf{vodml-id: Velocity.coord} \newline
       \textbf{type: coords:Point} \newline
@@ -125,17 +138,20 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   \label{sect:ProperMotion}
     Proper motion represented as the velocity in Longitude and Latitude directions of a spherical coordinate space. The associated SpaceFrame provides the details regarding the nature of the coordinate space (eg: Equatorial, Galactic, etc).
 
-    \subsubsection{ProperMotion.lon}
-      \textbf{vodml-id: ProperMotion.lon} \newline
-      \textbf{type: coords:PhysicalCoordinate} \newline
-      \textbf{multiplicity: 1} \newline 
-      Velocity in angular distance per unit time along the Longitude axis. It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal position. We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular usage thread.
+    \noindent \textbf{constraint} \newline
+    \indent    \textbf{detail: ProperMotion.ucd:'pos.pm' }\newline
 
-    \subsubsection{ProperMotion.lat}
-      \textbf{vodml-id: ProperMotion.lat} \newline
-      \textbf{type: coords:PhysicalCoordinate} \newline
+    \subsubsection{ProperMotion.coord}
+      \textbf{vodml-id: ProperMotion.coord} \newline
+      \textbf{type: coords:Point} \newline
       \textbf{multiplicity: 1} \newline 
-      Velocity in angular distance per unit time along the Latitude axis.
+      Velocity in angular distance per unit time. We use the Point type for the proper motion value to be consistent with the Position and Velocity types, allowing representation in different coordinate spaces (eg: Polar).
+
+    \subsubsection{ProperMotion.cosLat\_applied}
+      \textbf{vodml-id: ProperMotion.cosLat\_applied} \newline
+      \textbf{type: \hyperref[sect:ivoa]{ivoa:boolean}} \newline
+      \textbf{multiplicity: 0..1} \newline 
+      It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(latitude) so that the magnitude of the quantity is not affected by its longitudinal position. We do not constrain the value to one form or the other in this model. Instead, this flag enables providers to convey whether or not the factor has been applied.
 
   \subsection{Polarization}
   \label{sect:Polarization}
@@ -144,6 +160,8 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
     \noindent \textbf{constraint} \newline
     \indent    \textbf{detail: Polarization.error:Error[0] }\newline
 
+    \noindent \textbf{constraint} \newline
+    \indent    \textbf{detail: Polarization.ucd:'phys.polarization' }\newline
 
     \subsubsection{Polarization.coord}
       \textbf{vodml-id: Polarization.coord} \newline
