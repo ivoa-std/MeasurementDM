@@ -9,6 +9,7 @@
 *.svrlt
 *.gvd
 *.validation-report.txt
+__TEMP__.vo-dml.xml
 
 # OS
 .DS_Store

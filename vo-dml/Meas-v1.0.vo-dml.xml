@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vo-dml:model xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://www.ivoa.net/xml/VODML/v1 http://www.ivoa.net/xml/VODML/vo-dml-v1.xsd">
+              xsi:schemaLocation="http://www.ivoa.net/xml/VODML/v1 https://www.ivoa.net/xml/VODML/vo-dml-v1.xsd">
   <name>meas</name>
   <description>This model defines objects and datatypes which represent 'measured' or 'determined' data.  It associates a Coordinate (ie: the determined value with associated physical context) with corresponding Error(s).  As such, this model is at least the foundation for representing the vast majority of the Astronomical data found in catalogs and data products.  
 
@@ -14,7 +14,7 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   <author>Arnold Rots, Mark Cresitello-Dittmar, Omar Laurino</author>
   <version>2.0</version>
   <previousVersion>0.x</previousVersion>
-  <lastModified>2020-06-19T14:44:33</lastModified>
+  <lastModified>2021-10-19T09:59:04</lastModified>
   <import>
     <name>ivoa</name>
     <url>http://www.ivoa.net/xml/VODML/20180519/IVOA-v1.0.vo-dml.xml</url>
@@ -22,8 +22,8 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   </import>
   <import>
     <name>coords</name>
-    <url>https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.vo-dml.xml</url>
-    <documentationURL>https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html</documentationURL>
+    <url>file:///Users/sao/Documents/IVOA/GitHub/CoordinateDM/vo-dml/Coords-v1.0.vo-dml.xml</url>
+    <documentationURL>https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html</documentationURL>
   </import>
   <dataType abstract="true">
     <vodml-id>Uncertainty</vodml-id>
@@ -328,9 +328,23 @@ When used in the spatial domain, the expectation is that the 'first axis' corres
     <name>Measure</name>
     <description>Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
 
+The breadth of astronomical data makes it impractical to define specialized classes for each property which may be measured or determined.  In this model, we take a two-pronged approach for identifying the nature of any given Measure.  First, we allow the use of a Unified Content Descriptor (UCD) to convey this information.  Second, we define specialized classes for properties which either have additional metadata associated with them, have complex coordinate spaces, and/or have special significance in other models.  For these specialized classes, the ucd is constrained to a fixed value.
+
 We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions and the corresponding value dimension.  We require that the Error content MUST be compatible with the value dimension and nature (e.g. dimension, domain, units, etc).
 
 </description>
+    <attribute>
+      <vodml-id>Measure.ucd</vodml-id>
+      <name>ucd</name>
+      <description>The Unified Content Descriptor (UCD) defines a controlled vocabulary for describing astronomical quantities.  Other than in the specialized types, we only constrain ucd value to being valid according to the vocabulary syntax.  However, the intent is to use only enough of the vocabulary to convey the nature of the measured value, and avoid usage of terms which may overlap with modeled concepts associated with the value.  For example, borrowing from examples in the UCD document:  for a magnitude measured in the J band, the ucd "phot.mag" is preferred over "phot.mag;em.IR.J" which conveys information about an associated filter, or "phot.mag;em.IR.J;meta.modelled" which includes ancillary qualifiers.</description>
+      <datatype>
+        <vodml-ref>ivoa:string</vodml-ref>
+      </datatype>
+      <multiplicity>
+        <minOccurs>0</minOccurs>
+        <maxOccurs>1</maxOccurs>
+      </multiplicity>
+    </attribute>
     <composition>
       <vodml-id>Measure.error</vodml-id>
       <name>error</name>
@@ -403,6 +417,9 @@ We associate the Error(s) with the full Measure, rather than the individual valu
     <extends>
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
+    <constraint>
+      <description>pos</description>
+    </constraint>
     <attribute>
       <vodml-id>Position.coord</vodml-id>
       <name>coord</name>
@@ -424,6 +441,9 @@ We associate the Error(s) with the full Measure, rather than the individual valu
     <extends>
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
+    <constraint>
+      <description>time</description>
+    </constraint>
     <attribute>
       <vodml-id>Time.coord</vodml-id>
       <name>coord</name>
@@ -448,6 +468,9 @@ We associate the Error(s) with the full Measure, rather than the individual valu
     <constraint>
       <description>error:Error[0]</description>
     </constraint>
+    <constraint>
+      <description>phys.polarization</description>
+    </constraint>
     <attribute>
       <vodml-id>Polarization.coord</vodml-id>
       <name>coord</name>
@@ -469,6 +492,9 @@ We associate the Error(s) with the full Measure, rather than the individual valu
     <extends>
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
+    <constraint>
+      <description>phys.veloc</description>
+    </constraint>
     <attribute>
       <vodml-id>Velocity.coord</vodml-id>
       <name>coord</name>
@@ -490,12 +516,16 @@ We associate the Error(s) with the full Measure, rather than the individual valu
     <extends>
       <vodml-ref>meas:Measure</vodml-ref>
     </extends>
+    <constraint>
+      <description>pos.pm</description>
+    </constraint>
     <attribute>
-      <vodml-id>ProperMotion.lon</vodml-id>
-      <name>lon</name>
-      <description>Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular usage thread.</description>
+      <vodml-id>ProperMotion.coord</vodml-id>
+      <name>coord</name>
+      <description>Velocity in angular distance per unit time.  We use the Point type for the proper motion value to be consistent with the Position and Velocity types, allowing representation in different coordinate spaces (eg: Polar).
+</description>
       <datatype>
-        <vodml-ref>coords:PhysicalCoordinate</vodml-ref>
+        <vodml-ref>coords:Point</vodml-ref>
       </datatype>
       <multiplicity>
         <minOccurs>1</minOccurs>
@@ -503,14 +533,14 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       </multiplicity>
     </attribute>
     <attribute>
-      <vodml-id>ProperMotion.lat</vodml-id>
-      <name>lat</name>
-      <description>Velocity in angular distance per unit time along the Latitude axis.</description>
+      <vodml-id>ProperMotion.cosLat_applied</vodml-id>
+      <name>cosLat_applied</name>
+      <description>It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(latitude) so that the magnitude of the quantity is not affected by its longitudinal position.  We do not constrain the value to one form or the other in this model.  Instead, this flag enables providers to convey whether or not the factor has been applied.</description>
       <datatype>
-        <vodml-ref>coords:PhysicalCoordinate</vodml-ref>
+        <vodml-ref>ivoa:boolean</vodml-ref>
       </datatype>
       <multiplicity>
-        <minOccurs>1</minOccurs>
+        <minOccurs>0</minOccurs>
         <maxOccurs>1</maxOccurs>
       </multiplicity>
     </attribute>
