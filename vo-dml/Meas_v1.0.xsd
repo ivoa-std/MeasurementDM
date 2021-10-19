@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1"
+            xmlns:vodml-base="http://www.ivoa.net/xml/vo-dml/xsd/base/v0.1"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:meas="http://ivoa.net/dm/models/vo-dml/xsd/meas"
+            xmlns:ivoa="http://ivoa.net/dm/models/vo-dml/xsd/ivoa"
+            xmlns:coords="http://ivoa.net/dm/models/vo-dml/xsd/coords"
+            targetNamespace="http://ivoa.net/dm/models/vo-dml/xsd/meas">
+   <xsd:import namespace="http://www.ivoa.net/xml/vo-dml/xsd/base/v0.1"
+               schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/xsd/vodml-base.xsd"/>
+   <xsd:import namespace="http://ivoa.net/dm/models/vo-dml/xsd/ivoa"
+               schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA.xsd"/>
+   <xsd:import namespace="http://ivoa.net/dm/models/vo-dml/xsd/coords"
+               schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/Coords_v1.0.xsd"/>
+   <xsd:complexType name="Measure" abstract="true">
+      <xsd:annotation>
+         <xsd:documentation>Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
+
+We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions and the corresponding value dimension.  We require that the Error content MUST be compatible with the value dimension and nature (e.g. dimension, domain, units, etc).
+
+</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Measure</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="vodml-base:VODMLObject">
+            <xsd:sequence>
+               <xsd:element name="error" type="meas:Error" minOccurs="0" maxOccurs="1"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Error">
+      <xsd:annotation>
+         <xsd:documentation>The Error class uses the Uncertainty types to describe measurement errors from various sources.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Error</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="vodml-base:VODMLObject">
+            <xsd:sequence>
+               <xsd:element name="statError" type="meas:Uncertainty" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Statistical error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Error.statError</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="sysError" type="meas:Uncertainty" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Systematic error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Error.sysError</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="GenericMeasure">
+      <xsd:annotation>
+         <xsd:documentation>The most generic Measure class.  This class may be used to represent any data not covered by the specialized cases.  The coordinate value type allows for the construction of multi-dimensional values to accommodate virtually any case.  </xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:GenericMeasure</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Measure">
+            <xsd:sequence>
+               <xsd:element name="coord" type="coords:PhysicalCoordinate" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>The measured coordinate value.  May be of any dimensionality (current support 1,2 and 3-dimension).  For many cases, the Standard1DCoord should suffice, providing a clean and simple representation of the measured value.  For other cases, users will need to provide a complete coordinate description.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:GenericMeasure.coord</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Position">
+      <xsd:annotation>
+         <xsd:documentation>Provides a complete description of a measured positional instant.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Position</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Measure">
+            <xsd:sequence>
+               <xsd:element name="coord" type="coords:Point" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>The measured Position value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system (space and frame), are associated with the Point.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Position.coord</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Time">
+      <xsd:annotation>
+         <xsd:documentation>Provides a complete description of a measured Temporal instant.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Time</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Measure">
+            <xsd:sequence>
+               <xsd:element name="coord" type="coords:TimeStamp" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>The measured time value.  May be provided in any of the TimeStamp subtypes.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Time.coord</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Polarization">
+      <xsd:annotation>
+         <xsd:documentation>Provides a complete description of a determined polarization state.  Since the polarization coordinate is an enumerated type, there can be no associated numerical error sources.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Polarization</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Measure">
+            <xsd:sequence>
+               <xsd:element name="coord" type="coords:PolCoordinate" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Determined polarization state.  May be provided by any of the PolCoordValue subtypes.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Polarization.coord</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Velocity">
+      <xsd:annotation>
+         <xsd:documentation>Provides a comple description of a measured Velocity instant.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Velocity</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Measure">
+            <xsd:sequence>
+               <xsd:element name="coord" type="coords:Point" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>The measured Velocity value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system (space and frame), are associated with the Point.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Velocity.coord</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="ProperMotion">
+      <xsd:annotation>
+         <xsd:documentation>Proper motion represented as the velocity in Longitude and Latitude directions of a spherical coordinate space.  The associated SpaceFrame provides the details regarding the nature of the coordinate space (eg: Equatorial, Galactic, etc).</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:ProperMotion</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Measure">
+            <xsd:sequence>
+               <xsd:element name="lon" type="coords:PhysicalCoordinate" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular usage thread.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:ProperMotion.lon</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="lat" type="coords:PhysicalCoordinate" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Velocity in angular distance per unit time along the Latitude axis.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:ProperMotion.lat</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Uncertainty" abstract="true">
+      <xsd:annotation>
+         <xsd:documentation>Abstract head of uncertainty types.  These classes define the shape of the uncertainty, and are designed to be reusable in different contexts.  Uncertainties are designed to be associated with a Coordinate or other object which provides the 'center' or reference location about which the uncertainty resides.  In this model, we use them in the context of defining measurement errors, but they are also compatible for use in defining resolutions which are to be modeled at a later date.
+
+This initial version of teh model forms a fundamental basis which can then be expanded to include more complex and varied use cases as they present themselves.  The current model assumes Gaussian distributions with shpes defined at the 68% confidence level.
+</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Uncertainty</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+   </xsd:complexType>
+
+   <xsd:complexType name="Symmetrical">
+      <xsd:annotation>
+         <xsd:documentation>Symmetrical uncertainty, constant in all dimensions and directions from the associated Coordinate.  ie: PlusMinus in 1D, circular in 2D, spherical in 3D.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Symmetrical</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="radius" type="ivoa:RealQuantity" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>The uncertainty extent, constant in all dimensions and directions.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Symmetrical.radius</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Asymmetrical1D">
+      <xsd:annotation>
+         <xsd:documentation>Uncertainty with different extent in the positive and negative directions from the associated Coordinate.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Asymmetrical1D</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="plus" type="ivoa:RealQuantity" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent in the positive axis direction.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Asymmetrical1D.plus</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="minus" type="ivoa:RealQuantity" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent in the negative axis direction.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Asymmetrical1D.minus</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Asymmetrical2D">
+      <xsd:annotation>
+         <xsd:documentation>2D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an offset rectangle.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Asymmetrical2D</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="plus" type="ivoa:RealQuantity" minOccurs="2" maxOccurs="2">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent in each positive axis direction.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Asymmetrical2D.plus</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="minus" type="ivoa:RealQuantity" minOccurs="2" maxOccurs="2">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent in each negative axis direction.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Asymmetrical2D.minus</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Asymmetrical3D">
+      <xsd:annotation>
+         <xsd:documentation>3D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an offset box.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Asymmetrical3D</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="plus" type="ivoa:RealQuantity" minOccurs="3" maxOccurs="3">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent in each positive axis direction.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Asymmetrical3D.plus</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="minus" type="ivoa:RealQuantity" minOccurs="3" maxOccurs="3">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent in each negative axis direction.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Asymmetrical3D.minus</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Bounds1D">
+      <xsd:annotation>
+         <xsd:documentation>Provide the edges of the uncertainty space.  Rather than being relative to the associated Coordinate, these represent a range within that Coordinate space.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Bounds1D</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="loLimit" type="ivoa:RealQuantity" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Lower limit of the uncertainty range.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Bounds1D.loLimit</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hiLimit" type="ivoa:RealQuantity" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Upper limit of the uncertainty range.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Bounds1D.hiLimit</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Bounds2D">
+      <xsd:annotation>
+         <xsd:documentation>Provide the edges of a 2D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges along each axis of that Coordinate space.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Bounds2D</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="loLimit" type="ivoa:RealQuantity" minOccurs="2" maxOccurs="2">
+                  <xsd:annotation>
+                     <xsd:documentation>Lower edges of the uncertainty rectangle.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Bounds2D.loLimit</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hiLimit" type="ivoa:RealQuantity" minOccurs="2" maxOccurs="2">
+                  <xsd:annotation>
+                     <xsd:documentation>Upper edges of the uncertainty rectangle.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Bounds2D.hiLimit</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Bounds3D">
+      <xsd:annotation>
+         <xsd:documentation>Provide the edges of a 3D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges along each axis of that Coordinate space.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Bounds3D</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="loLimit" type="ivoa:RealQuantity" minOccurs="3" maxOccurs="3">
+                  <xsd:annotation>
+                     <xsd:documentation>Lower edges of the uncertainty box.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Bounds3D.loLimit</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hiLimit" type="ivoa:RealQuantity" minOccurs="3" maxOccurs="3">
+                  <xsd:annotation>
+                     <xsd:documentation>Upper edges of the uncertainty box.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Bounds3D.hiLimit</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Ellipse">
+      <xsd:annotation>
+         <xsd:documentation>Elliptical uncertainty shape.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Ellipse</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="semiAxis" type="ivoa:RealQuantity" minOccurs="2" maxOccurs="2">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent of the semi-major and semi-minor axes, provided in the order of the associated Coordinate axes.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Ellipse.semiAxis</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="posAngle" type="ivoa:RealQuantity" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>Position angle, counter-clockwise from the positive direction of the first axis of the associated Coordinate.  When used in the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the second to 'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.
+</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Ellipse.posAngle</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="Ellipsoid">
+      <xsd:annotation>
+         <xsd:documentation>Ellipsoidal uncertainty shape.</xsd:documentation>
+         <xsd:appinfo>
+            <vodml-ref>meas:Ellipsoid</vodml-ref>
+         </xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="meas:Uncertainty">
+            <xsd:sequence>
+               <xsd:element name="semiAxis" type="ivoa:RealQuantity" minOccurs="3" maxOccurs="3">
+                  <xsd:annotation>
+                     <xsd:documentation>Extent of the semi axes, provided in the order of the associated Coordinate axes.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Ellipsoid.semiAxis</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="posAngle" type="ivoa:RealQuantity" minOccurs="2" maxOccurs="2">
+                  <xsd:annotation>
+                     <xsd:documentation>Position angles 
+  * counter-clockwise from the positive direction of the first axis toward the second axis
+  * angle 'above' the plane of the first two axes of the associated Coordinate.  
+When used in the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the second to 'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Ellipsoid.posAngle</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+</xsd:schema>
