@@ -1,3 +1,5 @@
+[![PDF-Preview](https://img.shields.io/badge/PDF-Preview-blue)](https://github.com/ivoa-std/MeasurementDM/releases/download/auto-pdf-preview/Measurements-draft.pdf)
+
 # What is it?
 
 This model covers the description of measured or determined astronomical data, and includes the following:
