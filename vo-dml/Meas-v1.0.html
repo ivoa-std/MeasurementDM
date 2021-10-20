@@ -127,7 +127,7 @@
       <tr>
         <td align="right"><b>Date</b></td>
         <td> : </td>
-        <td>2020-06-19T14:44:33</td>
+        <td>2021-10-19T11:33:46</td>
       </tr>
       <tr>
         <td align="right"><b>Version</b></td>
@@ -168,7 +168,7 @@
       <tr>
         <td colspan="3"></td>
       </tr>
-    </table><img src="STC_meas-v1.0.png" usemap="#GVmap"><map id="GVmap" name="GVmap">
+    </table><img src="Meas-v1.0.png" usemap="#GVmap"><map id="GVmap" name="GVmap">
 <area shape="rect" id="node1" href="#Uncertainty" title="{&lt;&lt;datatype&gt;&gt;\nUncertainty}" alt="" coords="694,125,777,175"/>
 <area shape="rect" id="node2" href="#Symmetrical" title="{&lt;&lt;datatype&gt;&gt;\nSymmetrical|+radius : ivoa:RealQuantity\l}" alt="" coords="5,11,145,70"/>
 <area shape="rect" id="node3" href="#Asymmetrical1D" title="{&lt;&lt;datatype&gt;&gt;\nAsymmetrical1D|+plus : ivoa:RealQuantity\l+minus : ivoa:RealQuantity\l}" alt="" coords="169,5,309,76"/>
@@ -179,14 +179,14 @@
 <area shape="rect" id="node8" href="#Bounds3D" title="{&lt;&lt;datatype&gt;&gt;\nBounds3D|+loLimit : ivoa:RealQuantity\l+hiLimit : ivoa:RealQuantity\l}" alt="" coords="1003,5,1150,76"/>
 <area shape="rect" id="node9" href="#Ellipse" title="{&lt;&lt;datatype&gt;&gt;\nEllipse|+semiAxis : ivoa:RealQuantity\l+posAngle : ivoa:RealQuantity\l}" alt="" coords="1175,5,1331,76"/>
 <area shape="rect" id="node10" href="#Ellipsoid" title="{&lt;&lt;datatype&gt;&gt;\nEllipsoid|+semiAxis : ivoa:RealQuantity\l+posAngle : ivoa:RealQuantity\l}" alt="" coords="1355,5,1511,76"/>
-<area shape="rect" id="node11" href="#Measure" title="{Measure}" alt="" coords="1994,125,2066,175"/>
+<area shape="rect" id="node11" href="#Measure" title="{Measure|+ucd : ivoa:string\l}" alt="" coords="1981,125,2079,175"/>
 <area shape="rect" id="node12" href="#Error" title="{Error|+statError : meas:Uncertainty\l+sysError : meas:Uncertainty\l}" alt="" coords="1955,237,2105,296"/>
 <area shape="rect" id="node13" href="#GenericMeasure" title="{GenericMeasure|+coord : coords:PhysicalCoordinate\l}" alt="" coords="1535,16,1711,65"/>
 <area shape="rect" id="node14" href="#Position" title="{Position|+coord : coords:Point\l}" alt="" coords="1735,16,1850,65"/>
 <area shape="rect" id="node15" href="#Time" title="{Time|+coord : coords:TimeStamp\l}" alt="" coords="1874,16,2015,65"/>
 <area shape="rect" id="node16" href="#Polarization" title="{Polarization|+coord : coords:PolCoordinate\l}" alt="" coords="2040,16,2193,65"/>
 <area shape="rect" id="node17" href="#Velocity" title="{Velocity|+coord : coords:Point\l}" alt="" coords="2218,16,2333,65"/>
-<area shape="rect" id="node18" href="#ProperMotion" title="{ProperMotion|+lon : coords:PhysicalCoordinate\l+lat : coords:PhysicalCoordinate\l}" alt="" coords="2357,11,2522,70"/>
+<area shape="rect" id="node18" href="#ProperMotion" title="{ProperMotion|+coord : coords:Point\l+cosLat_applied : ivoa:boolean\l}" alt="" coords="2357,11,2513,70"/>
 </map>
 
     <hr>
@@ -902,7 +902,7 @@
                     <tr>
                       <td class="feature-detail" valign="top" rowspan="4"><a name="GenericMeasure.coord"></a><b>coord</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
@@ -935,6 +935,12 @@
           <td class="info-title">description</td>
           <td class="feature-detail" colspan="1">Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
             
+            The breadth of astronomical data makes it impractical to define specialized classes for each property which may be measured
+            or determined.  In this model, we take a two-pronged approach for identifying the nature of any given Measure.  First, we
+            allow the use of a Unified Content Descriptor (UCD) to convey this information.  Second, we define specialized classes for
+            properties which either have additional metadata associated with them, have complex coordinate spaces, and/or have special
+            significance in other models.  For these specialized classes, the ucd is constrained to a fixed value.
+            
             We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and
             uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered
             with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions
@@ -957,6 +963,37 @@
                     <tr>
                       <td class="info-title" width="20%">Subclasses in this model</td>
                       <td class="feature-detail" colspan="3"><a href="#GenericMeasure">GenericMeasure</a> <a href="#Polarization">Polarization</a> <a href="#Position">Position</a> <a href="#ProperMotion">ProperMotion</a> <a href="#Time">Time</a> <a href="#Velocity">Velocity</a> 
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">attributes</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading" width="20%">name</td>
+                      <td class="feature-heading" width="10%">feature</td>
+                      <td class="feature-heading" width="70%">value</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="Measure.ucd"></a><b>ucd</b></td>
+                      <td class="feature-heading">type</td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#string">string</a></td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">vodml-id</td>
+                      <td class="feature-detail">Measure.ucd</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">multiplicity</td>
+                      <td class="feature-detail">0..1</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-heading">description</td>
+                      <td class="feature-detail">The Unified Content Descriptor (UCD) defines a controlled vocabulary for describing astronomical quantities.  Other than in
+                        the specialized types, we only constrain ucd value to being valid according to the vocabulary syntax.  However, the intent
+                        is to use only enough of the vocabulary to convey the nature of the measured value, and avoid usage of terms which may overlap
+                        with modeled concepts associated with the value.  For example, borrowing from examples in the UCD document:  for a magnitude
+                        measured in the J band, the ucd "phot.mag" is preferred over "phot.mag;em.IR.J" which conveys information about an associated
+                        filter, or "phot.mag;em.IR.J;meta.modelled" which includes ancillary qualifiers.
                       </td>
                     </tr>
                     <tr>
@@ -1030,7 +1067,7 @@
                     <tr>
                       <td class="feature-detail" valign="top" rowspan="4"><a name="Polarization.coord"></a><b>coord</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PolCoordinate">PolCoordinate</a></td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html#PolCoordinate">PolCoordinate</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
@@ -1049,6 +1086,9 @@
                     </tr>
                     <tr>
                       <td class="feature-detail" valign="top" colspan="3">error:Error[0]</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" colspan="3">ucd:'phys.polarization'</td>
                     </tr>
                   </table>
                 </td>
@@ -1090,7 +1130,7 @@
                     <tr>
                       <td class="feature-detail" valign="top" rowspan="4"><a name="Position.coord"></a><b>coord</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#Point">Point</a></td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html#Point">Point</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
@@ -1105,6 +1145,12 @@
                       <td class="feature-detail">The measured Position value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system
                         (space and frame), are associated with the Point.
                       </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">constraints</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" colspan="3">ucd:'pos'</td>
                     </tr>
                   </table>
                 </td>
@@ -1146,13 +1192,13 @@
                       <td class="feature-heading" width="70%">value</td>
                     </tr>
                     <tr>
-                      <td class="feature-detail" valign="top" rowspan="4"><a name="ProperMotion.lon"></a><b>lon</b></td>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="ProperMotion.coord"></a><b>coord</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html#Point">Point</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
-                      <td class="feature-detail">ProperMotion.lon</td>
+                      <td class="feature-detail">ProperMotion.coord</td>
                     </tr>
                     <tr>
                       <td class="feature-heading">multiplicity</td>
@@ -1160,28 +1206,36 @@
                     </tr>
                     <tr>
                       <td class="feature-heading">description</td>
-                      <td class="feature-detail">Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote
-                        longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal
-                        position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular
-                        usage thread.
+                      <td class="feature-detail">Velocity in angular distance per unit time.  We use the Point type for the proper motion value to be consistent with the Position
+                        and Velocity types, allowing representation in different coordinate spaces (eg: Polar).
+                        
                       </td>
                     </tr>
                     <tr>
-                      <td class="feature-detail" valign="top" rowspan="4"><a name="ProperMotion.lat"></a><b>lat</b></td>
+                      <td class="feature-detail" valign="top" rowspan="4"><a name="ProperMotion.cosLat_applied"></a><b>cosLat_applied</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#PhysicalCoordinate">PhysicalCoordinate</a></td>
+                      <td class="feature-detail"><a href="#ivoa">ivoa</a>:<a href="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html#boolean">boolean</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
-                      <td class="feature-detail">ProperMotion.lat</td>
+                      <td class="feature-detail">ProperMotion.cosLat_applied</td>
                     </tr>
                     <tr>
                       <td class="feature-heading">multiplicity</td>
-                      <td class="feature-detail">1</td>
+                      <td class="feature-detail">0..1</td>
                     </tr>
                     <tr>
                       <td class="feature-heading">description</td>
-                      <td class="feature-detail">Velocity in angular distance per unit time along the Latitude axis.</td>
+                      <td class="feature-detail">It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(latitude) so that the
+                        magnitude of the quantity is not affected by its longitudinal position.  We do not constrain the value to one form or the
+                        other in this model.  Instead, this flag enables providers to convey whether or not the factor has been applied.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">constraints</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" colspan="3">ucd:'pos.pm'</td>
                     </tr>
                   </table>
                 </td>
@@ -1279,7 +1333,7 @@
                     <tr>
                       <td class="feature-detail" valign="top" rowspan="4"><a name="Time.coord"></a><b>coord</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#TimeStamp">TimeStamp</a></td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html#TimeStamp">TimeStamp</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
@@ -1292,6 +1346,12 @@
                     <tr>
                       <td class="feature-heading">description</td>
                       <td class="feature-detail">The measured time value.  May be provided in any of the TimeStamp subtypes.</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">constraints</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" colspan="3">ucd:'time'</td>
                     </tr>
                   </table>
                 </td>
@@ -1376,7 +1436,7 @@
                     <tr>
                       <td class="feature-detail" valign="top" rowspan="4"><a name="Velocity.coord"></a><b>coord</b></td>
                       <td class="feature-heading">type</td>
-                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html#Point">Point</a></td>
+                      <td class="feature-detail"><a href="#coords">coords</a>:<a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html#Point">Point</a></td>
                     </tr>
                     <tr>
                       <td class="feature-heading">vodml-id</td>
@@ -1391,6 +1451,12 @@
                       <td class="feature-detail">The measured Velocity value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system
                         (space and frame), are associated with the Point.
                       </td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="info-title">constraints</td>
+                    </tr>
+                    <tr>
+                      <td class="feature-detail" valign="top" colspan="3">ucd:'phys.veloc'</td>
                     </tr>
                   </table>
                 </td>
@@ -1598,6 +1664,12 @@
         <td class="feature-detail">objectType</td>
         <td class="feature-detail">Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
           
+          The breadth of astronomical data makes it impractical to define specialized classes for each property which may be measured
+          or determined.  In this model, we take a two-pronged approach for identifying the nature of any given Measure.  First, we
+          allow the use of a Unified Content Descriptor (UCD) to convey this information.  Second, we define specialized classes for
+          properties which either have additional metadata associated with them, have complex coordinate spaces, and/or have special
+          significance in other models.  For these specialized classes, the ucd is constrained to a fixed value.
+          
           We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and
           uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered
           with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions
@@ -1611,6 +1683,17 @@
         <td class="feature-detail"><a href="#Measure.error">Measure.error</a></td>
         <td class="feature-detail">composition</td>
         <td class="feature-detail">Measurement error.</td>
+      </tr>
+      <tr>
+        <td class="feature-detail"><a href="#Measure.ucd">Measure.ucd</a></td>
+        <td class="feature-detail">attribute</td>
+        <td class="feature-detail">The Unified Content Descriptor (UCD) defines a controlled vocabulary for describing astronomical quantities.  Other than in
+          the specialized types, we only constrain ucd value to being valid according to the vocabulary syntax.  However, the intent
+          is to use only enough of the vocabulary to convey the nature of the measured value, and avoid usage of terms which may overlap
+          with modeled concepts associated with the value.  For example, borrowing from examples in the UCD document:  for a magnitude
+          measured in the J band, the ucd "phot.mag" is preferred over "phot.mag;em.IR.J" which conveys information about an associated
+          filter, or "phot.mag;em.IR.J;meta.modelled" which includes ancillary qualifiers.
+        </td>
       </tr>
       <tr>
         <td class="feature-detail"><a href="#Polarization">Polarization</a></td>
@@ -1644,17 +1727,19 @@
         </td>
       </tr>
       <tr>
-        <td class="feature-detail"><a href="#ProperMotion.lat">ProperMotion.lat</a></td>
+        <td class="feature-detail"><a href="#ProperMotion.coord">ProperMotion.coord</a></td>
         <td class="feature-detail">attribute</td>
-        <td class="feature-detail">Velocity in angular distance per unit time along the Latitude axis.</td>
+        <td class="feature-detail">Velocity in angular distance per unit time.  We use the Point type for the proper motion value to be consistent with the Position
+          and Velocity types, allowing representation in different coordinate spaces (eg: Polar).
+          
+        </td>
       </tr>
       <tr>
-        <td class="feature-detail"><a href="#ProperMotion.lon">ProperMotion.lon</a></td>
+        <td class="feature-detail"><a href="#ProperMotion.cosLat_applied">ProperMotion.cosLat_applied</a></td>
         <td class="feature-detail">attribute</td>
-        <td class="feature-detail">Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote
-          longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal
-          position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular
-          usage thread.
+        <td class="feature-detail">It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(latitude) so that the
+          magnitude of the quantity is not affected by its longitudinal position.  We do not constrain the value to one form or the
+          other in this model.  Instead, this flag enables providers to convey whether or not the factor has been applied.
         </td>
       </tr>
       <tr>
@@ -1721,11 +1806,11 @@
       </tr>
       <tr>
         <td width="30%" class="info-title">url</td>
-        <td><a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.vo-dml.xml">https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.vo-dml.xml</a></td>
+        <td><a href="file:///Users/sao/Documents/IVOA/GitHub/CoordinateDM/vo-dml/Coords-v1.0.vo-dml.xml">file:///Users/sao/Documents/IVOA/GitHub/CoordinateDM/vo-dml/Coords-v1.0.vo-dml.xml</a></td>
       </tr>
       <tr>
         <td width="30%" class="info-title">documentation url</td>
-        <td><a href="https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html">https://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/STC_coords-v1.0.html</a></td>
+        <td><a href="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html">https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html</a></td>
       </tr>
     </table>
     <h2><a name="ivoa"></a>4.2 ivoa

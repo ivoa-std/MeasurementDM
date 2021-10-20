@@ -2,19 +2,21 @@
 <xsd:schema xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1"
             xmlns:vodml-base="http://www.ivoa.net/xml/vo-dml/xsd/base/v0.1"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:meas="http://ivoa.net/dm/models/vo-dml/xsd/meas"
+            xmlns:meas="http://ivoa.net/xml/meas"
             xmlns:ivoa="http://ivoa.net/dm/models/vo-dml/xsd/ivoa"
-            xmlns:coords="http://ivoa.net/dm/models/vo-dml/xsd/coords"
-            targetNamespace="http://ivoa.net/dm/models/vo-dml/xsd/meas">
+            xmlns:coords="http://ivoa.net/xml/coords"
+            targetNamespace="http://ivoa.net/xml/meas">
    <xsd:import namespace="http://www.ivoa.net/xml/vo-dml/xsd/base/v0.1"
                schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/xsd/vodml-base.xsd"/>
    <xsd:import namespace="http://ivoa.net/dm/models/vo-dml/xsd/ivoa"
                schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA.xsd"/>
-   <xsd:import namespace="http://ivoa.net/dm/models/vo-dml/xsd/coords"
-               schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/STC/Coords/vo-dml/Coords_v1.0.xsd"/>
+   <xsd:import namespace="http://ivoa.net/xml/coords"
+               schemaLocation="https://github.com/ivoa-std/CoordinateDM/blob/rfc2_updates/vo-dml/Coords_v1.0.xsd"/>
    <xsd:complexType name="Measure" abstract="true">
       <xsd:annotation>
          <xsd:documentation>Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
+
+The breadth of astronomical data makes it impractical to define specialized classes for each property which may be measured or determined.  In this model, we take a two-pronged approach for identifying the nature of any given Measure.  First, we allow the use of a Unified Content Descriptor (UCD) to convey this information.  Second, we define specialized classes for properties which either have additional metadata associated with them, have complex coordinate spaces, and/or have special significance in other models.  For these specialized classes, the ucd is constrained to a fixed value.
 
 We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions and the corresponding value dimension.  We require that the Error content MUST be compatible with the value dimension and nature (e.g. dimension, domain, units, etc).
 
@@ -26,6 +28,14 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <xsd:complexContent>
          <xsd:extension base="vodml-base:VODMLObject">
             <xsd:sequence>
+               <xsd:element name="ucd" type="xsd:string" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation>The Unified Content Descriptor (UCD) defines a controlled vocabulary for describing astronomical quantities.  Other than in the specialized types, we only constrain ucd value to being valid according to the vocabulary syntax.  However, the intent is to use only enough of the vocabulary to convey the nature of the measured value, and avoid usage of terms which may overlap with modeled concepts associated with the value.  For example, borrowing from examples in the UCD document:  for a magnitude measured in the J band, the ucd "phot.mag" is preferred over "phot.mag;em.IR.J" which conveys information about an associated filter, or "phot.mag;em.IR.J;meta.modelled" which includes ancillary qualifiers.</xsd:documentation>
+                     <xsd:appinfo>
+                        <vodml-ref>meas:Measure.ucd</vodml-ref>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="error" type="meas:Error" minOccurs="0" maxOccurs="1"/>
             </xsd:sequence>
          </xsd:extension>
@@ -65,7 +75,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
 
    <xsd:complexType name="GenericMeasure">
       <xsd:annotation>
-         <xsd:documentation>The most generic Measure class.  This class may be used to represent any data not covered by the specialized cases.  The coordinate value type allows for the construction of multi-dimensional values to accommodate virtually any case.  </xsd:documentation>
+         <xsd:documentation>The most generic Measure class.  This class may be used to represent data not covered by the specialized cases.</xsd:documentation>
          <xsd:appinfo>
             <vodml-ref>meas:GenericMeasure</vodml-ref>
          </xsd:appinfo>
@@ -75,7 +85,7 @@ We associate the Error(s) with the full Measure, rather than the individual valu
             <xsd:sequence>
                <xsd:element name="coord" type="coords:PhysicalCoordinate" minOccurs="1" maxOccurs="1">
                   <xsd:annotation>
-                     <xsd:documentation>The measured coordinate value.  May be of any dimensionality (current support 1,2 and 3-dimension).  For many cases, the Standard1DCoord should suffice, providing a clean and simple representation of the measured value.  For other cases, users will need to provide a complete coordinate description.</xsd:documentation>
+                     <xsd:documentation>The measured coordinate value.</xsd:documentation>
                      <xsd:appinfo>
                         <vodml-ref>meas:GenericMeasure.coord</vodml-ref>
                      </xsd:appinfo>
@@ -188,19 +198,20 @@ We associate the Error(s) with the full Measure, rather than the individual valu
       <xsd:complexContent>
          <xsd:extension base="meas:Measure">
             <xsd:sequence>
-               <xsd:element name="lon" type="coords:PhysicalCoordinate" minOccurs="1" maxOccurs="1">
+               <xsd:element name="coord" type="coords:Point" minOccurs="1" maxOccurs="1">
                   <xsd:annotation>
-                     <xsd:documentation>Velocity in angular distance per unit time along the Longitude axis.  It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(lat) so that the magnitude of the quantity is not affected by its longitudinal position.  We do not constrain this value to one form or the other in this model, leaving it to be specified by the particular usage thread.</xsd:documentation>
+                     <xsd:documentation>Velocity in angular distance per unit time.  We use the Point type for the proper motion value to be consistent with the Position and Velocity types, allowing representation in different coordinate spaces (eg: Polar).
+</xsd:documentation>
                      <xsd:appinfo>
-                        <vodml-ref>meas:ProperMotion.lon</vodml-ref>
+                        <vodml-ref>meas:ProperMotion.coord</vodml-ref>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="lat" type="coords:PhysicalCoordinate" minOccurs="1" maxOccurs="1">
+               <xsd:element name="cosLat_applied" type="xsd:boolean" minOccurs="0" maxOccurs="1">
                   <xsd:annotation>
-                     <xsd:documentation>Velocity in angular distance per unit time along the Latitude axis.</xsd:documentation>
+                     <xsd:documentation>It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(latitude) so that the magnitude of the quantity is not affected by its longitudinal position.  We do not constrain the value to one form or the other in this model.  Instead, this flag enables providers to convey whether or not the factor has been applied.</xsd:documentation>
                      <xsd:appinfo>
-                        <vodml-ref>meas:ProperMotion.lat</vodml-ref>
+                        <vodml-ref>meas:ProperMotion.cosLat_applied</vodml-ref>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?><xmi:XMI xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:IVOA_UML_Profile="http:///schemas/IVOA_UML_Profile/_02TSgDBbEeyTgO0dzOXbOg/0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.omg.org/spec/UML/20110701" xmi:version="2.1" xsi:schemaLocation="http://www.eclipse.org/uml2/3.0.0/UML http://schema.omg.org/spec/UML/20110701 http:///schemas/IVOA_UML_Profile/_02TSgDBbEeyTgO0dzOXbOg/0 IVOA_UML_Profile.profile.xmi#_03WbZzBbEeyTgO0dzOXbOg">
+  <uml:Model xmi:id="_02JhgDBbEeyTgO0dzOXbOg" name="meas">
+    <eAnnotations xmi:id="_02JhgTBbEeyTgO0dzOXbOg" source="Objing">
+      <contents xmi:type="uml:Property" xmi:id="_02JhgjBbEeyTgO0dzOXbOg" name="exporterVersion">
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_02JhgzBbEeyTgO0dzOXbOg" value="3.0.0"/>
+      </contents>
+    </eAnnotations>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_02JhhDBbEeyTgO0dzOXbOg">
+      <body>This model defines objects and datatypes which represent 'measured' or 'determined' data.  It associates a Coordinate (ie: the determined value with associated physical context) with corresponding Error(s).  As such, this model is at least the foundation for representing the vast majority of the Astronomical data found in catalogs and data products.  
+
+We define here, several specialized classes which cover the most basic and common types, such as Position and Time.  We also provide a generic model which can accommodate virtually any data, but may require a bit more effort to fully describe the coordinate metadata.  Additional specializations, e.g. Flux, Magnitude, Luminosity, Pressure, Temperature, etc. may be added to this model, or in other models focusing on particular domains or use cases.
+
+We include a fairly simple Error model, describing errors as a 'shape' of uncertainty, and define a small set of commonly occuring forms (e.g. Symmetrical, Bounds, Ellipsoid). 
+</body>
+    </ownedComment>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhhTBbEeyTgO0dzOXbOg" constrainedElement="_02JiKjBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhhjBbEeyTgO0dzOXbOg" value="ucd:'pos'"/>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhhzBbEeyTgO0dzOXbOg" constrainedElement="_02JiLzBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhiDBbEeyTgO0dzOXbOg" value="ucd:'time'"/>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhiTBbEeyTgO0dzOXbOg" constrainedElement="_02JiNDBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhijBbEeyTgO0dzOXbOg" value="error:Error[0]"/>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhizBbEeyTgO0dzOXbOg" constrainedElement="_02JiNDBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhjDBbEeyTgO0dzOXbOg" value="ucd:'phys.polarization'"/>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhjTBbEeyTgO0dzOXbOg" constrainedElement="_02JiOTBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhjjBbEeyTgO0dzOXbOg" value="ucd:'phys.veloc'"/>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_02JhjzBbEeyTgO0dzOXbOg" constrainedElement="_02JiPjBbEeyTgO0dzOXbOg">
+      <specification xmi:type="uml:LiteralString" xmi:id="_02JhkDBbEeyTgO0dzOXbOg" value="ucd:'pos.pm'"/>
+    </ownedRule>
+    <packagedElement xmi:type="uml:InformationItem" xmi:id="_02JhkTBbEeyTgO0dzOXbOg" name="Astronomical Measurement Model V1.0"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_02JhkjBbEeyTgO0dzOXbOg" name="ivoa">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhkzBbEeyTgO0dzOXbOg" name="nonnegativeInteger"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhlDBbEeyTgO0dzOXbOg" name="integer"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhlTBbEeyTgO0dzOXbOg" name="real"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhljBbEeyTgO0dzOXbOg" name="rational">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhlzBbEeyTgO0dzOXbOg" name="numerator" visibility="public" type="_02JhlDBbEeyTgO0dzOXbOg" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhmDBbEeyTgO0dzOXbOg" name="denominator" visibility="public" type="_02JhkzBbEeyTgO0dzOXbOg" isUnique="false"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhmTBbEeyTgO0dzOXbOg" name="complex">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhmjBbEeyTgO0dzOXbOg" name="re" visibility="public" type="_02JhlTBbEeyTgO0dzOXbOg" isUnique="false"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhmzBbEeyTgO0dzOXbOg" name="im" visibility="public" type="_02JhlTBbEeyTgO0dzOXbOg" isUnique="false"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhnDBbEeyTgO0dzOXbOg" name="boolean"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhnTBbEeyTgO0dzOXbOg" name="datetime"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhnjBbEeyTgO0dzOXbOg" name="string"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhnzBbEeyTgO0dzOXbOg" name="anyURI">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhoDBbEeyTgO0dzOXbOg" general="_02JhnjBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:InformationItem" xmi:id="_02JhoTBbEeyTgO0dzOXbOg" name="IVOA Base Types V1.0"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhojBbEeyTgO0dzOXbOg" name="Unit">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhozBbEeyTgO0dzOXbOg" general="_02JhnjBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_02JhpDBbEeyTgO0dzOXbOg" name="Quantity" isAbstract="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhpTBbEeyTgO0dzOXbOg" name="unit" visibility="public" type="_02JhojBbEeyTgO0dzOXbOg" isUnique="false">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JhpjBbEeyTgO0dzOXbOg"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_02JhpzBbEeyTgO0dzOXbOg" name="IntegerQuantity">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhqDBbEeyTgO0dzOXbOg" general="_02JhpDBbEeyTgO0dzOXbOg"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhqTBbEeyTgO0dzOXbOg" name="value" visibility="public" type="_02JhlDBbEeyTgO0dzOXbOg" isUnique="false"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:DataType" xmi:id="_02JhqjBbEeyTgO0dzOXbOg" name="RealQuantity">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhqzBbEeyTgO0dzOXbOg" general="_02JhpDBbEeyTgO0dzOXbOg"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhrDBbEeyTgO0dzOXbOg" name="value" visibility="public" type="_02JhlTBbEeyTgO0dzOXbOg" isUnique="false"/>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_02JhrTBbEeyTgO0dzOXbOg" name="coords">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhrjBbEeyTgO0dzOXbOg" name="PixelIndex">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhrzBbEeyTgO0dzOXbOg" general="_02JhuDBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhsDBbEeyTgO0dzOXbOg" name="TimeStamp" isAbstract="true">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhsTBbEeyTgO0dzOXbOg" general="_02JhtTBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhsjBbEeyTgO0dzOXbOg" name="PolCoordinate" isAbstract="true">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhszBbEeyTgO0dzOXbOg" general="_02JhtTBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:InformationItem" xmi:id="_02JhtDBbEeyTgO0dzOXbOg" name="Astronomical Coordinates and Coordinate Systems V1.0"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhtTBbEeyTgO0dzOXbOg" name="Coordinate" isAbstract="true"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhtjBbEeyTgO0dzOXbOg" name="PhysicalCoordinate">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhtzBbEeyTgO0dzOXbOg" general="_02JhtTBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhuDBbEeyTgO0dzOXbOg" name="BinnedCoordinate">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhuTBbEeyTgO0dzOXbOg" general="_02JhtTBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_02JhujBbEeyTgO0dzOXbOg" name="CoordFrame" isAbstract="true"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_02JhuzBbEeyTgO0dzOXbOg" name="Point">
+        <generalization xmi:type="uml:Generalization" xmi:id="_02JhvDBbEeyTgO0dzOXbOg" general="_02JhtTBbEeyTgO0dzOXbOg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_02JhvTBbEeyTgO0dzOXbOg" name="CoordSys" isAbstract="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JhvjBbEeyTgO0dzOXbOg" name="Measure" isAbstract="true">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JhvzBbEeyTgO0dzOXbOg">
+        <body>Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
+
+The breadth of astronomical data makes it impractical to define specialized classes for each property which may be measured or determined.  In this model, we take a two-pronged approach for identifying the nature of any given Measure.  First, we allow the use of a Unified Content Descriptor (UCD) to convey this information.  Second, we define specialized classes for properties which either have additional metadata associated with them, have complex coordinate spaces, and/or have special significance in other models.  For these specialized classes, the ucd is constrained to a fixed value.
+
+We associate the Error(s) with the full Measure, rather than the individual values, in order to support both correlated and uncorrelated errors.  In many cases with multi-dimensional data, the associated errors are correlated and must be considered with the value set as a whole.  One consequence of this approach is that there is a looser association between the Error dimensions and the corresponding value dimension.  We require that the Error content MUST be compatible with the value dimension and nature (e.g. dimension, domain, units, etc).
+
+</body>
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhwDBbEeyTgO0dzOXbOg" name="error" visibility="public" type="_02JhyDBbEeyTgO0dzOXbOg" aggregation="composite" association="_02JhxjBbEeyTgO0dzOXbOg">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JhwTBbEeyTgO0dzOXbOg">
+          <body>Measurement error.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JhwjBbEeyTgO0dzOXbOg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhwzBbEeyTgO0dzOXbOg" name="ucd" visibility="public" type="_02JhnjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JhxDBbEeyTgO0dzOXbOg">
+          <body>The Unified Content Descriptor (UCD) defines a controlled vocabulary for describing astronomical quantities.  Other than in the specialized types, we only constrain ucd value to being valid according to the vocabulary syntax.  However, the intent is to use only enough of the vocabulary to convey the nature of the measured value, and avoid usage of terms which may overlap with modeled concepts associated with the value.  For example, borrowing from examples in the UCD document:  for a magnitude measured in the J band, the ucd "phot.mag" is preferred over "phot.mag;em.IR.J" which conveys information about an associated filter, or "phot.mag;em.IR.J;meta.modelled" which includes ancillary qualifiers.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JhxTBbEeyTgO0dzOXbOg"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_02JhxjBbEeyTgO0dzOXbOg" memberEnd="_02JhwDBbEeyTgO0dzOXbOg _02JhxzBbEeyTgO0dzOXbOg">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_02JhxzBbEeyTgO0dzOXbOg" visibility="public" type="_02JhvjBbEeyTgO0dzOXbOg" association="_02JhxjBbEeyTgO0dzOXbOg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JhyDBbEeyTgO0dzOXbOg" name="Error">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JhyTBbEeyTgO0dzOXbOg">
+        <body>The Error class uses the Uncertainty types to describe measurement errors from various sources.</body>
+      </ownedComment>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhyjBbEeyTgO0dzOXbOg" name="statError" visibility="public" type="_02Jh0DBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JhyzBbEeyTgO0dzOXbOg">
+          <body>Statistical error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JhzDBbEeyTgO0dzOXbOg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JhzTBbEeyTgO0dzOXbOg" name="sysError" visibility="public" type="_02Jh0DBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JhzjBbEeyTgO0dzOXbOg">
+          <body>Systematic error.  The Uncertainty type MUST be dimensionally compatible with the associated Measure value.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JhzzBbEeyTgO0dzOXbOg"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh0DBbEeyTgO0dzOXbOg" name="Uncertainty" isAbstract="true">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh0TBbEeyTgO0dzOXbOg">
+        <body>Abstract head of uncertainty types.  These classes define the shape of the uncertainty, and are designed to be reusable in different contexts.  Uncertainties are designed to be associated with a Coordinate or other object which provides the 'center' or reference location about which the uncertainty resides.  In this model, we use them in the context of defining measurement errors, but they are also compatible for use in defining resolutions which are to be modeled at a later date.
+
+This initial version of teh model forms a fundamental basis which can then be expanded to include more complex and varied use cases as they present themselves.  The current model assumes Gaussian distributions with shpes defined at the 68% confidence level.
+</body>
+      </ownedComment>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh0jBbEeyTgO0dzOXbOg" name="Symmetrical">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh0zBbEeyTgO0dzOXbOg">
+        <body>Symmetrical uncertainty, constant in all dimensions and directions from the associated Coordinate.  ie: PlusMinus in 1D, circular in 2D, spherical in 3D.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02Jh1DBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh1TBbEeyTgO0dzOXbOg" name="radius" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh1jBbEeyTgO0dzOXbOg">
+          <body>The uncertainty extent, constant in all dimensions and directions.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh1zBbEeyTgO0dzOXbOg" name="Asymmetrical1D">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh2DBbEeyTgO0dzOXbOg">
+        <body>Uncertainty with different extent in the positive and negative directions from the associated Coordinate.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02Jh2TBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh2jBbEeyTgO0dzOXbOg" name="plus" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh2zBbEeyTgO0dzOXbOg">
+          <body>Extent in the positive axis direction.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh3DBbEeyTgO0dzOXbOg" name="minus" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh3TBbEeyTgO0dzOXbOg">
+          <body>Extent in the negative axis direction.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh3jBbEeyTgO0dzOXbOg" name="Asymmetrical2D">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh3zBbEeyTgO0dzOXbOg">
+        <body>2D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an offset rectangle.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02Jh4DBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh4TBbEeyTgO0dzOXbOg" name="plus" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh4jBbEeyTgO0dzOXbOg">
+          <body>Extent in each positive axis direction.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02Jh4zBbEeyTgO0dzOXbOg" value="2"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02Jh5DBbEeyTgO0dzOXbOg" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh5TBbEeyTgO0dzOXbOg" name="minus" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh5jBbEeyTgO0dzOXbOg">
+          <body>Extent in each negative axis direction.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02Jh5zBbEeyTgO0dzOXbOg" value="2"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02Jh6DBbEeyTgO0dzOXbOg" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh6TBbEeyTgO0dzOXbOg" name="Asymmetrical3D">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh6jBbEeyTgO0dzOXbOg">
+        <body>3D Uncertainty with different extent in the positive and negative axis directions from the associated Coordinate.  i.e.: an offset box.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02Jh6zBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh7DBbEeyTgO0dzOXbOg" name="plus" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh7TBbEeyTgO0dzOXbOg">
+          <body>Extent in each positive axis direction.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02Jh7jBbEeyTgO0dzOXbOg" value="3"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02Jh7zBbEeyTgO0dzOXbOg" value="3"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh8DBbEeyTgO0dzOXbOg" name="minus" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh8TBbEeyTgO0dzOXbOg">
+          <body>Extent in each negative axis direction.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02Jh8jBbEeyTgO0dzOXbOg" value="3"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02Jh8zBbEeyTgO0dzOXbOg" value="3"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh9DBbEeyTgO0dzOXbOg" name="Bounds1D">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh9TBbEeyTgO0dzOXbOg">
+        <body>Provide the edges of the uncertainty space.  Rather than being relative to the associated Coordinate, these represent a range within that Coordinate space.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02Jh9jBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh9zBbEeyTgO0dzOXbOg" name="loLimit" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh-DBbEeyTgO0dzOXbOg">
+          <body>Lower limit of the uncertainty range.</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh-TBbEeyTgO0dzOXbOg" name="hiLimit" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh-jBbEeyTgO0dzOXbOg">
+          <body>Upper limit of the uncertainty range.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02Jh-zBbEeyTgO0dzOXbOg" name="Bounds2D">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh_DBbEeyTgO0dzOXbOg">
+        <body>Provide the edges of a 2D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges along each axis of that Coordinate space.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02Jh_TBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02Jh_jBbEeyTgO0dzOXbOg" name="loLimit" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02Jh_zBbEeyTgO0dzOXbOg">
+          <body>Lower edges of the uncertainty rectangle.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiADBbEeyTgO0dzOXbOg" value="2"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiATBbEeyTgO0dzOXbOg" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiAjBbEeyTgO0dzOXbOg" name="hiLimit" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiAzBbEeyTgO0dzOXbOg">
+          <body>Upper edges of the uncertainty rectangle.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiBDBbEeyTgO0dzOXbOg" value="2"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiBTBbEeyTgO0dzOXbOg" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02JiBjBbEeyTgO0dzOXbOg" name="Bounds3D">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiBzBbEeyTgO0dzOXbOg">
+        <body>Provide the edges of a 3D uncertainty space.  Rather than being relative to the associated Coordinate, these represent ranges along each axis of that Coordinate space.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiCDBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiCTBbEeyTgO0dzOXbOg" name="loLimit" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiCjBbEeyTgO0dzOXbOg">
+          <body>Lower edges of the uncertainty box.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiCzBbEeyTgO0dzOXbOg" value="3"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiDDBbEeyTgO0dzOXbOg" value="3"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiDTBbEeyTgO0dzOXbOg" name="hiLimit" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiDjBbEeyTgO0dzOXbOg">
+          <body>Upper edges of the uncertainty box.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiDzBbEeyTgO0dzOXbOg" value="3"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiEDBbEeyTgO0dzOXbOg" value="3"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02JiETBbEeyTgO0dzOXbOg" name="Ellipse">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiEjBbEeyTgO0dzOXbOg">
+        <body>Elliptical uncertainty shape.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiEzBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiFDBbEeyTgO0dzOXbOg" name="semiAxis" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiFTBbEeyTgO0dzOXbOg">
+          <body>Extent of the semi-major and semi-minor axes, provided in the order of the associated Coordinate axes.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiFjBbEeyTgO0dzOXbOg" value="2"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiFzBbEeyTgO0dzOXbOg" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiGDBbEeyTgO0dzOXbOg" name="posAngle" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiGTBbEeyTgO0dzOXbOg">
+          <body>Position angle, counter-clockwise from the positive direction of the first axis of the associated Coordinate.  When used in the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the second to 'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.
+</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_02JiGjBbEeyTgO0dzOXbOg" name="Ellipsoid">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiGzBbEeyTgO0dzOXbOg">
+        <body>Ellipsoidal uncertainty shape.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiHDBbEeyTgO0dzOXbOg" general="_02Jh0DBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiHTBbEeyTgO0dzOXbOg" name="semiAxis" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiHjBbEeyTgO0dzOXbOg">
+          <body>Extent of the semi axes, provided in the order of the associated Coordinate axes.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiHzBbEeyTgO0dzOXbOg" value="3"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiIDBbEeyTgO0dzOXbOg" value="3"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiITBbEeyTgO0dzOXbOg" name="posAngle" visibility="public" type="_02JhqjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiIjBbEeyTgO0dzOXbOg">
+          <body>Position angles 
+  * counter-clockwise from the positive direction of the first axis toward the second axis
+  * angle 'above' the plane of the first two axes of the associated Coordinate.  
+When used in the spatial domain, the expectation is that the 'first axis' corresponds to the 'North Celestial Pole', and the second to 'East', thereby conforming to the IAU definition of the position angle direction being 'East of North'.</body>
+        </ownedComment>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_02JiIzBbEeyTgO0dzOXbOg" value="2"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02JiJDBbEeyTgO0dzOXbOg" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JiJTBbEeyTgO0dzOXbOg" name="GenericMeasure">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiJjBbEeyTgO0dzOXbOg">
+        <body>The most generic Measure class.  This class may be used to represent data not covered by the specialized cases.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiJzBbEeyTgO0dzOXbOg" general="_02JhvjBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiKDBbEeyTgO0dzOXbOg" name="coord" visibility="public" type="_02JhtjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiKTBbEeyTgO0dzOXbOg">
+          <body>The measured coordinate value.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JiKjBbEeyTgO0dzOXbOg" name="Position">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiKzBbEeyTgO0dzOXbOg">
+        <body>Provides a complete description of a measured positional instant.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiLDBbEeyTgO0dzOXbOg" general="_02JhvjBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiLTBbEeyTgO0dzOXbOg" name="coord" visibility="public" type="_02JhuzBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiLjBbEeyTgO0dzOXbOg">
+          <body>The measured Position value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system (space and frame), are associated with the Point.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JiLzBbEeyTgO0dzOXbOg" name="Time">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiMDBbEeyTgO0dzOXbOg">
+        <body>Provides a complete description of a measured Temporal instant.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiMTBbEeyTgO0dzOXbOg" general="_02JhvjBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiMjBbEeyTgO0dzOXbOg" name="coord" visibility="public" type="_02JhsDBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiMzBbEeyTgO0dzOXbOg">
+          <body>The measured time value.  May be provided in any of the TimeStamp subtypes.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JiNDBbEeyTgO0dzOXbOg" name="Polarization">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiNTBbEeyTgO0dzOXbOg">
+        <body>Provides a complete description of a determined polarization state.  Since the polarization coordinate is an enumerated type, there can be no associated numerical error sources.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiNjBbEeyTgO0dzOXbOg" general="_02JhvjBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiNzBbEeyTgO0dzOXbOg" name="coord" visibility="public" type="_02JhsjBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiODBbEeyTgO0dzOXbOg">
+          <body>Determined polarization state.  May be provided by any of the PolCoordValue subtypes.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JiOTBbEeyTgO0dzOXbOg" name="Velocity">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiOjBbEeyTgO0dzOXbOg">
+        <body>Provides a comple description of a measured Velocity instant.</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiOzBbEeyTgO0dzOXbOg" general="_02JhvjBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiPDBbEeyTgO0dzOXbOg" name="coord" visibility="public" type="_02JhuzBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiPTBbEeyTgO0dzOXbOg">
+          <body>The measured Velocity value.  The Point coordinate supports 1,2, and 3-dimensional cases.  Details of the coordinate system (space and frame), are associated with the Point.</body>
+        </ownedComment>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_02JiPjBbEeyTgO0dzOXbOg" name="ProperMotion">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_02JiPzBbEeyTgO0dzOXbOg">
+        <body>Proper motion represented as the velocity in Longitude and Latitude directions of a spherical coordinate space.  The associated SpaceFrame provides the details regarding the nature of the coordinate space (eg: Equatorial, Galactic, etc).</body>
+      </ownedComment>
+      <generalization xmi:type="uml:Generalization" xmi:id="_02JiQDBbEeyTgO0dzOXbOg" general="_02JhvjBbEeyTgO0dzOXbOg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiQTBbEeyTgO0dzOXbOg" name="coord" visibility="public" type="_02JhuzBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiQjBbEeyTgO0dzOXbOg">
+          <body>Velocity in angular distance per unit time.  We use the Point type for the proper motion value to be consistent with the Position and Velocity types, allowing representation in different coordinate spaces (eg: Polar).
+</body>
+        </ownedComment>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_02JiQzBbEeyTgO0dzOXbOg" name="cosLat_applied" visibility="public" type="_02JhnDBbEeyTgO0dzOXbOg" isUnique="false">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_02JiRDBbEeyTgO0dzOXbOg">
+          <body>It is common, though not universal, practice to quote longitudinal proper motion pre-multiplied by cos(latitude) so that the magnitude of the quantity is not affected by its longitudinal position.  We do not constrain the value to one form or the other in this model.  Instead, this flag enables providers to convey whether or not the factor has been applied.</body>
+        </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_02KIkDBbEeyTgO0dzOXbOg"/>
+      </ownedAttribute>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:applyingPackage="_02JhgDBbEeyTgO0dzOXbOg" xmi:id="_08AR4DBbEeyTgO0dzOXbOg">
+      <eAnnotations xmi:id="_08BgADBbEeyTgO0dzOXbOg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="IVOA_UML_Profile.profile.xmi#_03WbZzBbEeyTgO0dzOXbOg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" xmi:applyingPackage="_08AR4DBbEeyTgO0dzOXbOg" href="IVOA_UML_Profile.profile.xmi#_03WbYDBbEeyTgO0dzOXbOg"/>
+    </profileApplication>
+  </uml:Model>
+  <IVOA_UML_Profile:model xmi:id="_08G_kDBbEeyTgO0dzOXbOg" base_Element="_02JhgDBbEeyTgO0dzOXbOg" title="Astronomical Measurements Model" version="2.0" authors="Arnold Rots, Mark Cresitello-Dittmar, Omar Laurino" previousVersion="0.x"/>
+  <IVOA_UML_Profile:modelimport xmi:id="_08HmoDBbEeyTgO0dzOXbOg" base_Element="_02JhkjBbEeyTgO0dzOXbOg" name="ivoa" version="1.0" url="http://www.ivoa.net/xml/VODML/20180519/IVOA-v1.0.vo-dml.xml" documentationURL="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA-v1.0.html"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08INsDBbEeyTgO0dzOXbOg" base_Element="_02JhkzBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08INsTBbEeyTgO0dzOXbOg" base_Element="_02JhkzBbEeyTgO0dzOXbOg" vodmlid="nonnegativeInteger"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08INsjBbEeyTgO0dzOXbOg" base_Element="_02JhlDBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08I0wDBbEeyTgO0dzOXbOg" base_Element="_02JhlDBbEeyTgO0dzOXbOg" vodmlid="integer"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08I0wTBbEeyTgO0dzOXbOg" base_Element="_02JhlTBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08I0wjBbEeyTgO0dzOXbOg" base_Element="_02JhlTBbEeyTgO0dzOXbOg" vodmlid="real"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08I0wzBbEeyTgO0dzOXbOg" base_Element="_02JhljBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08I0xDBbEeyTgO0dzOXbOg" base_Element="_02JhljBbEeyTgO0dzOXbOg" vodmlid="rational"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08Jb0DBbEeyTgO0dzOXbOg" base_Element="_02JhmTBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08Jb0TBbEeyTgO0dzOXbOg" base_Element="_02JhmTBbEeyTgO0dzOXbOg" vodmlid="complex"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08Jb0jBbEeyTgO0dzOXbOg" base_Element="_02JhnDBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08Jb0zBbEeyTgO0dzOXbOg" base_Element="_02JhnDBbEeyTgO0dzOXbOg" vodmlid="boolean"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08Jb1DBbEeyTgO0dzOXbOg" base_Element="_02JhnTBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08KC4DBbEeyTgO0dzOXbOg" base_Element="_02JhnTBbEeyTgO0dzOXbOg" vodmlid="datetime"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08KC4TBbEeyTgO0dzOXbOg" base_Element="_02JhnjBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08KC4jBbEeyTgO0dzOXbOg" base_Element="_02JhnjBbEeyTgO0dzOXbOg" vodmlid="string"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08KC4zBbEeyTgO0dzOXbOg" base_Element="_02JhnzBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08KC5DBbEeyTgO0dzOXbOg" base_Element="_02JhnzBbEeyTgO0dzOXbOg" vodmlid="anyURI"/>
+  <IVOA_UML_Profile:primitive xmi:id="_08KC5TBbEeyTgO0dzOXbOg" base_Element="_02JhojBbEeyTgO0dzOXbOg"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08Kp8DBbEeyTgO0dzOXbOg" base_Element="_02JhojBbEeyTgO0dzOXbOg" vodmlid="quantity.Unit"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08Kp8TBbEeyTgO0dzOXbOg" base_Element="_02JhpDBbEeyTgO0dzOXbOg" vodmlid="Quantity"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08Kp8jBbEeyTgO0dzOXbOg" base_Element="_02JhpzBbEeyTgO0dzOXbOg" vodmlid="IntegerQuantity"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08LRADBbEeyTgO0dzOXbOg" base_Element="_02JhqjBbEeyTgO0dzOXbOg" vodmlid="RealQuantity"/>
+  <!--
+  <IVOA_UML_Profile:modelimport xmi:id="_08LRATBbEeyTgO0dzOXbOg" base_Element="_02JhrTBbEeyTgO0dzOXbOg" name="coords" version="1.0" url="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.xml" documentationURL="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html"/>
+  -->
+  <IVOA_UML_Profile:modelimport xmi:id="_08LRATBbEeyTgO0dzOXbOg" base_Element="_02JhrTBbEeyTgO0dzOXbOg" name="coords" version="1.0" url="file:///Users/sao/Documents/IVOA/GitHub/CoordinateDM/vo-dml/Coords-v1.0.vo-dml.xml" documentationURL="https://github.com/ivoa-std/CoordinateDM/blob/master/vo-dml/Coords-v1.0.vo-dml.html"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08LRAjBbEeyTgO0dzOXbOg" base_Element="_02JhrjBbEeyTgO0dzOXbOg" vodmlid="PixelIndex"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08LRAzBbEeyTgO0dzOXbOg" base_Element="_02JhsDBbEeyTgO0dzOXbOg" vodmlid="TimeStamp"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08L4EDBbEeyTgO0dzOXbOg" base_Element="_02JhsjBbEeyTgO0dzOXbOg" vodmlid="PolCoordinate"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08L4ETBbEeyTgO0dzOXbOg" base_Element="_02JhtTBbEeyTgO0dzOXbOg" vodmlid="Coordinate"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08L4EjBbEeyTgO0dzOXbOg" base_Element="_02JhtjBbEeyTgO0dzOXbOg" vodmlid="PhysicalCoordinate"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08L4EzBbEeyTgO0dzOXbOg" base_Element="_02JhuDBbEeyTgO0dzOXbOg" vodmlid="BinnedCoordinate"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08MfIDBbEeyTgO0dzOXbOg" base_Element="_02JhujBbEeyTgO0dzOXbOg" vodmlid="CoordFrame"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08MfITBbEeyTgO0dzOXbOg" base_Element="_02JhuzBbEeyTgO0dzOXbOg" vodmlid="Point"/>
+  <IVOA_UML_Profile:modelelement xmi:id="_08MfIjBbEeyTgO0dzOXbOg" base_Element="_02JhvTBbEeyTgO0dzOXbOg" vodmlid="CoordSys"/>
+</xmi:XMI>
