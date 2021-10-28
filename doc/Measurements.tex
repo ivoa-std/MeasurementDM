@@ -96,88 +96,92 @@ This document describes the Measurement model which provides descriptions for:
 \subsection{Use Cases}
 \label{sect:usecases}
 
+This is a core data model, intended to be used within other models describing higher level products.
+As such, there are a vast number of usage threads which the model is required to support.  Rather than
+enumerating individual usage threads here, we describe the concepts which must be covered and criteria
+which must be met to facilitate these various usage threads.
+
 \subsubsection{Cube model support}
 \label{uc:Cube-model-support}
-  The primary use case for this work is in support of the CubesDM. \\
-  The CubesDM is a N-Dimensional model for pixelated images and sparse cube data. 
+  The primary use case for this work is in support of the Cube Data Model (CubesDM);
+  a N-Dimensional model for pixelated images and sparse cube data. 
  
   The following is a brief outline of the most relevant features pertaining to the
-  development of the Measurement, Coordinates, and Transform component models.  Many 
-  of these features are handled by the Coordinates or Transform models, but are 
-  relevant to the full description of Measurement model elements.
+  development of this model.  Many of these features are handled by the Coordinates or Transform models,
+  we mention them here at a high level to convey the relation between the models.
 
   \begin{itemize}
     \item General
     \begin{itemize}
-       \item knowledge of the physical domain spaces provided at a high level
-       \item definition of the domain space includes the following criteria
-       \begin{itemize}
-          \item dimensionality (typically 1,2 or 3 for physical domain), pixel domain may be of any dimension
-          \item axis configuration (for spatial domain which has >1D).  The most common configurations for astronomical data are Cartesian and Spherical, but others may be used as well.
-          \item domain range along each axis, typically +/- Inf, but may be limited due to physical constraints (e.g. physical size of a detector, sensitivity limitiations, etc)
-          \item association with additional metadata further describing the nature of the domain space ( Frame ).  This is especially true for the Spatial and Temporal domains, but may apply to others as well.  Examples include:
-          \begin{itemize}
-             \item reference position (location of origin)
-             \item reference frame (orientation of the domain space)
-             \item planetary ephemeris
-             \item equinox
-          \end{itemize}
-       \end{itemize}
+
+      \item At the most basic level, the measurement associates a measured or determined value with one or more errors.
+      \item Most data contained within a cube fall within the scope of the Measurement model, regardless of whether or not errrors are actually provided.
+      \item The value itself, along with any associated metadata describing the domain space in which it resides is relegated to the Coordinates model.  This includes:
+        \begin{itemize}
+          \item coordinate space definitions: dimensionality, axis configuration, axis ranges, etc
+          \item coordinate frames: ancillary metadata related to the domain space such as the origin (reference position), orientation (reference frame), etc.
+        \end{itemize}
     \end{itemize}
     \item Pixelated Image Cube
     \begin{itemize}
-       \item complete specification of pixel coordinate domain; number of axes, number of pixels per axis
-       \item image axes
-       \begin{itemize}
-          \item in pixel domain, are a binned coordinate space with integerized values (pixel indexes) 
-          \item mapped to various 'physical' coordinate spaces via transform operations 
-          \item mappings may define a progressive migration in coordinate space (e.g. pixel - ccd - detector - sky - wcs ) 
-          \item pixel axis mappings are typically to a continuous domain, but may also be to a discrete domain such as Polarization state.
-       \end{itemize}
-       \item image cubes may have any number of dimensions, but are typically separable into co-dependent axes of 1, 2, or 3 dimensions.
-       \begin{itemize}
-          \item spatial domain typically 2-3 dimensions
-          \item other domains (time, spectral, polarization), are typically 1 dimensional
-       \end{itemize}
-       \item image data value is typically given in a physical domain, but may itself be mapped to other domains
+      \item The specification of the image pixel domain is relegated to the Coordinates model.
+      \item The image cell value is considered within the scope of this model.
+      \item The image cell value is typically given in a physical domain, but may be mapped to other representations or domains via transform operations.
     \end{itemize}
-    \item Sparse Cube
+    \item Sparse Cube \\
+      The Sparse Cube is structurally different from a Pixelated Image, but contains many of the same concepts.
+      To facilitate the development of efficient, reusable code, the models should use the same objects in
+      these various contexts wherever feasible.
     \begin{itemize}
-       \item data axes cover a wide array of physical domains including, but not limited to Spatial, Temporal, Spectral, Polarization,
-       \item individual domains may be represented multiple times in different frames ( ccd, detector, sky;  pha, energy )
-       \item data values may have associated errors
-       \begin{itemize}
-          \item typical error forms include: symmetric( +/- a ), asymmetric( +a:-b ), interval ( a:b ), matrix, elliptical
-          \item can become quite complex: probability distributions, error maps, etc.
-          \item quality indicators:
-          \begin{itemize}
-             \item global status, typically numeric
-             \item bit array, where each bit is associated with a particular quality state 
-          \end{itemize}
-          \item associated errors may be separable or correlated among multiple data axes
+      \item The data cover a wide array of physical domains including, but not limited to Spatial, Temporal, Spectral, Polarization
+      \item Individual domains may be represented multiple times. e.g. multiple positions, fluxes in different bands.
+      \item The measure values themselves, and associated metadata are relegated to the Coordinates model.
+      \item These values may have associated errors..
+        \begin{itemize}
+           \item Errors must be dimensionally compatible with the associated values
         \end{itemize}
-        \item data axes may be virtual, defined as a mapping from other data axes (same description as above)
+      \item Errors may stem from various sources.
+      \begin{itemize}
+         \item for this version of the model, we limit the options to one systematic, and one statistical error source.
+      \end{itemize}
     \end{itemize}
-    \item Physical Data (Observables)
+    \item Physical Data (Observables) \\
+       Sparse cubes contain a wide variety of observable data.
     \begin{itemize}
-       \item focus on the following domains which are frequently included in astronomical data cubes: Spatial, Spectral, Temporal, Polarization
-       \item Spatial
-       \begin{itemize}
-          \item Cartesian space:  chip, detector, sky
-          \item Spherical space: Equatorial, Ecliptic, Galactic, LongLat
-       \end{itemize}
-       \item Time
-       \begin{itemize}
-          \item 1-Dimensional: JD, MJD, ISOTime, TimeOffset
-       \end{itemize}
-       \item Polarization
-       \begin{itemize}
-          \item Discrete space: Polarization states (Stokes, Linear, Circular, Vector )
-       \end{itemize}
-       \item Spectral
-       \begin{itemize}
-          \item 1-Dimensional: energy, frequency, wavelength
-       \end{itemize}
+       \item It is impractical to describe each as a specialized type, so this model must support a simple description applicable to any 1-dimensional data.
+       \item To facilitate usage in automated systems, the physical nature (domain) of each observable should be easily discerned.
+         For example, 'find and plot the time and magnitude data from this cube.'
+       \item Some domains have special constraints on the data values, and/or have special importance in other models.
+         To help ensure a consistent definition in each context, we represent these with specialized classes in the model. \\
+         e.g. the target position must be a spatial Position, observation date must be a Time, etc.
+       \item In many use cases, the value domain space is irrelevant or can be implied.  In others, physical constraints, environmental factors,
+         or instrumental limitations may require the explicit specification of the domain space.  To keep a simple and consistent model
+         which facilitates code generation and reuse, all cases should be handled in the same manner.  However, the models must not require this metadata be provided.
+    \end{itemize}
+    \item Errors (Uncertainties)
+    \begin{itemize}
+      \item In multi-dimensional data errors may range from very simple and uncorrelated, to very complex and/or correlated between any of the given axes.
+      \begin{itemize}
+         \item for this version of the model, we limit the scope to a very simple error model.
+         \item additional usage threads involving more complex error handling will drive the evolution of the error model.
+      \end{itemize}
+      \item This version of the model should support the more commonly used forms.  Possible examples include:
+      \begin{itemize}
+        \item symmetric( +/- a )
+        \item asymmetric( +a:-b )
+        \item interval ( a:b )
+        \item matrix
+        \item elliptical
+        \item quality indicators:
+         \begin{itemize}
+            \item global status, typically numeric
+            \item bit array, where each bit is associated with a particular quality state 
+         \end{itemize}
+      \end{itemize}
+      \item Virtual data should accommodate the transform of errors as well as the coordinates themselves.
+        \begin{itemize}
+           \item this feature is implicitly supported by applying a transform to a Measure rather than a Coordinate.
+        \end{itemize}
     \end{itemize}
   \end{itemize}
 
@@ -271,6 +275,7 @@ IVOA architecture \citep{2010ivoa.rept.1123A}.
 \subsection{Changes from PR-2020-04-13}
 \begin{itemize} 
   \item update citation codes per ivoatex changes.
+  \item Section 2.1: revise use case descriptions in response to RFC2 comments
   \item Section 4.1: add descriptive text on expected usage of new ucd attribute
   \item Section 4.1.1: add Measure.ucd attribute
   \item Section 4.4: add constraint specification for Time.ucd
