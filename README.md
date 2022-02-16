@@ -1,4 +1,4 @@
-[![PDF-Release](https://img.shields.io/badge/PDF-Preview-green)](https://github.com/ivoa-std/MeasurementDM/releases/download/auto-pdf-stable/Measurements.pdf)
+[![PDF-Release](https://img.shields.io/badge/PDF-Release-green)](https://github.com/ivoa-std/MeasurementDM/releases/download/auto-pdf-stable/Measurements.pdf)
 [![PDF-Preview](https://img.shields.io/badge/PDF-Preview-blue)](https://github.com/ivoa-std/MeasurementDM/releases/download/auto-pdf-preview/Measurements-draft.pdf)
 
 # What is it?
