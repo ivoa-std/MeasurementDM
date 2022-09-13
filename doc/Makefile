@@ -7,7 +7,7 @@ DOCNAME = Measurements
 DOCVERSION = 1.0
 
 # Publication date, ISO format; update manually for "releases"
-DOCDATE = 2022-09-11
+DOCDATE = 2022-09-13
 
 # What is it you're writing: NOTE, WD, PR, REC, PEN, or EN
 DOCTYPE = REC
