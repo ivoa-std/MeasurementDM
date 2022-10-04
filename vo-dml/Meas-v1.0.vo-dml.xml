@@ -18,7 +18,7 @@ We include a fairly simple Error model, describing errors as a 'shape' of uncert
   <import>
     <name>ivoa</name>
     <url>https://www.ivoa.net/xml/VODML/IVOA-v1.vo-dml.xml</url>
-    <documentationURL>https://www.ivoa.net/documents/VODML/index.html</documentationURL>
+    <documentationURL>https://www.ivoa.net/documents/VODML/20180910/IVOA-REC-v1.0.html</documentationURL>
   </import>
   <import>
     <name>coords</name>
