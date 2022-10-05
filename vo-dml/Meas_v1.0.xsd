@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:vo-dml="http://www.ivoa.net/xml/VODML/v1"
-            xmlns:vodml-base="http://www.ivoa.net/xml/vo-dml/xsd/base/v0.1"
+            xmlns:vodml-base="http://www.ivoa.net/xml/vo-dml/xsd/base"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:meas="http://ivoa.net/xml/meas"
             xmlns:ivoa="http://ivoa.net/dm/models/vo-dml/xsd/ivoa"
             xmlns:coords="http://ivoa.net/xml/coords"
             targetNamespace="http://ivoa.net/xml/meas">
-   <xsd:import namespace="http://www.ivoa.net/xml/vo-dml/xsd/base/v0.1"
-               schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/xsd/vodml-base.xsd"/>
+   <xsd:import namespace="http://www.ivoa.net/xml/vo-dml/xsd/base"
+               schemaLocation="https://ivoa.net/xml/vodml-base-v1.xsd"/>
    <xsd:import namespace="http://ivoa.net/dm/models/vo-dml/xsd/ivoa"
-               schemaLocation="http://volute.g-vo.org/svn/trunk/projects/dm/vo-dml/models/ivoa/vo-dml/IVOA.xsd"/>
+               schemaLocation="https://www.ivoa.net/xml/IVOA-v1.xsd"/>
    <xsd:import namespace="http://ivoa.net/xml/coords"
-               schemaLocation="https://github.com/ivoa-std/CoordinateDM/blob/rfc2_updates/vo-dml/Coords_v1.0.xsd"/>
+               schemaLocation="https://www.ivoa.net/xml/Coords-v1.xsd"/>
    <xsd:complexType name="Measure" abstract="true">
       <xsd:annotation>
          <xsd:documentation>Abstract base of Measure classes, associates a 'determined value' (Coordinate) with corresponding errors.
