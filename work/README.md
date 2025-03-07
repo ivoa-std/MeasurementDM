@@ -75,19 +75,8 @@ Pulling from [VO-DML Tools Guide](https://ivoa.github.io/vo-dml/QuickStart/), wi
     In this repository, it is located coincident with the vo-dml/xml file it relates to (ie: in the vodmlDir).
 
 # Workflow
-The basic premise is to have
-* the source model description in VODSL format for readability and easy modification, including difference checks in the Git repository
-    * the final product is stored in the 'model' directory
-* use the toolkit to convert this to vo-dml/xml, the normative definition of the data model
-    * this product is stored in the 'vo-dml' directory
-* use the toolkit to convert the vo-dml/xml file to various products
-    * HTML documentation for the model
-    * LaTeX document for generating the PDF
-* diagrams for the PDF documentation are generated using the Modelio modeling tool (v3.7).
-    NOTE: previous iterations of the model had exported the model in full from Modelio to XMI format and
-    used the XSLT translation scripts (available through the Toolkit) to translate to VO-DML/XML.  This
-    process can be combersome and the XSLT scripts must be tailored to specific modeling tool and version thereof.
 
+Details of the modeling workflow are described in [toolkit_workflow.md](https://github.com/ivoa-std/MeasurementDM/work/toolkit_workflow.md).
 
 # Running Tasks
 The toolkit contains several tasks which can be used to generate and validate VO-DML/XML files, or translate them into
@@ -101,6 +90,15 @@ VO-DML/XML files and generation of the standard HTML documentation.
     * input, output, and translation script are specified with the task registration in build.gradle.kts
     * the task locates the xmi file, and executes the specified translation script
     * output vo-dml/xml is generated in the local directory.
+
+* ```%> gradle vodmlToVodsl --dml=../vo-dml/Meas-v1.0.vo-dml.xml --dsl=build/generated/model/Meas-v1.0.vodsl```
+  For converting VO-DML/XML files created by other means, like the UMLToVODML task, to VODSL format.
+  This is generally expected to be a one-time translation, and some manual edits are likely needed to re-create the vo-dml/xml from it.
+  The final corrected/modified version resides (configured) in the ../model directory.
+
+* ```%> gradle vodslToVodml```
+  For converting VODSL model description file to VO-DML/XML format.
+
 
 * ```%> gradle vodmlValidate```
   Runs the VO-DML validation utility on the vo-dml/xml file.

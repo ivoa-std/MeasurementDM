@@ -8,13 +8,15 @@ group = "org.javastro.ivoa.dm"
 version = "1.0-SNAPSHOT"
 
 vodml {
-    vodslDir.set(file("../model"))
-    vodmlDir.set(file("../vo-dml"))
+    vodslDir.set(file("./build/vodsl"))
+    vodslFiles.setFrom( project.files( vodslDir.file("Meas-v1.0.vodsl" ) ))
+    
+    vodmlDir.set(file("./build/generated/vo-dml"))
     bindingFiles.setFrom(file("../vo-dml/meas.vo-dml.binding.xml"))
 }
 
 dependencies {
-    api("org.javastro.ivoa.dm:coordinateDM:1.1.1-SNAPSHOT") //reusing the "standard" base library
+    //api("org.javastro.ivoa.dm:coordinateDM:1.1.1-SNAPSHOT") //reusing the "standard" base library
     // Use JUnit Jupiter for testing - only necessary if you want to write unit tests!
     implementation("org.slf4j:slf4j-api:1.7.32")
     testRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
