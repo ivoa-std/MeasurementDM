@@ -27,10 +27,10 @@ Output file will be written to ./build/generated/vo-dml
 
 Check that the model changes are properly reflected in the vo-dml/xml file.  Also, the translation script does not populate
 certain fields, and these need to be hand-edited.
-* &LTimport&GT nodes: the VODSL import operation does not allow for providing the URL information.
-    * &LTurl&GT URL does not include the base 'https://www.ivoa.net/xml/VODML/'
-    * &LTdocumentationURL&GT value is not populated.
-* &LTconstraint&GT nodes:
+* \<import\> nodes: the VODSL import operation does not allow for providing the URL information.
+    * \<url\> URL does not include the base 'https://www.ivoa.net/xml/VODML/'
+    * \<documentationURL\> value is not populated.
+* \<constraint\> nodes:
     * open question here, the VODSL has the constraints in the text, but as comments.. and they are not transferred
       to the output vo-dml/xml file.
 
@@ -42,11 +42,14 @@ certain fields, and these need to be hand-edited.
 ## Update model diagrams for PDF documentation
 
 For this project, I've been using Modelio v3.7 for the modeling and diagrams.  With the conversion to VODSL for the model description, I'll still be using Modelio for the diagrams.  This opens potential for discrepancies, but the advantage of having a simple, machine-readable source for the model description outweighs that risk.
+
 There are no details for this, the Modelio .xmi file does not include the diagrams, so short of importing a Modelio Project .zip file, there is no way of loading the current diagram suite.
 
 Replace images at ../doc/diagrams
 
 
-## Generate new VO-DML/XML file
+## Generate new VO-DML/HTML file
+
+Details TBD
 
 ```%> gradle vodmlDoc```
