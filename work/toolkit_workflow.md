@@ -12,6 +12,15 @@ The following will populate this directory with models required for the Measurem
 %> gradle vodmlToVodsl --dml=IVOA-v1.0.vo-dml.xml --dsl=build/vodsl/IVOA-v1.0.vodsl 
 %> gradle vodmlToVodsl --dml=Coords-v1.0.vo-dml.xml --dsl=build/vodsl/Coords-v1.0.vodsl 
 ```
+## Corrections to generated VODSL files
+* \<constraint\> nodes:
+    * The output VODSL has the constraints from the vo-dml/XML file, but as comments.
+      These are not understood by vodslToVodml utility and must be corrected for them to be transferred
+      to any subsequent output vo-dml/xml file.
+
+      The VODSL syntax for a constraint is '< "constraint as simple text" >'.
+      Convert the 'comment' constraint string to this format, under the constrained element.
+
 
 ## Make model modifications
 
@@ -30,9 +39,6 @@ certain fields, and these need to be hand-edited.
 * \<import\> nodes: the VODSL import operation does not allow for providing the URL information.
     * \<url\> URL does not include the base 'https://www.ivoa.net/xml/VODML/'
     * \<documentationURL\> value is not populated.
-* \<constraint\> nodes:
-    * open question here, the VODSL has the constraints in the text, but as comments.. and they are not transferred
-      to the output vo-dml/xml file.
 
 ## Replace version controled copy at
 
